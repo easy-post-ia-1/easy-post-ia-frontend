@@ -56,7 +56,7 @@ jobs:
 
     - name: Download task definition
       run: |
-        aws ecs describe-task-definition --task-definition deploy-prod --query taskDefinition > .github/worflows/task-definition.json
+        aws ecs describe-task-definition --task-definition deploy-prod --query taskDefinition > task-definition.json
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
@@ -75,7 +75,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ secrets.ECS_TASK_DEFINITION }}
+        task-definition: ${{ task-definition.json }}
         container-name: ${{ secrets.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
 
