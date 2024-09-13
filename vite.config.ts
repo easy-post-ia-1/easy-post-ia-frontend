@@ -1,9 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+
+import oxlintPlugin from 'vite-plugin-oxlint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), oxlintPlugin()],
   preview: {
     port: 5173,
     strictPort: true,
@@ -12,6 +14,6 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     host: true,
-    origin: "http://0.0.0.0:5173",
+    origin: 'http://0.0.0.0:5173',
   },
-})
+});

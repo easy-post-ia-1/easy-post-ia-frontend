@@ -1,50 +1,107 @@
-# React + TypeScript + Vite
+# 📬 Easy Post IA Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Easy Post IA Frontend** project! This is a modern frontend application powered by Vite, React, and other cutting-edge technologies.
 
-Currently, two official plugins are available:
+## 🚀 Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these instructions to set up and run the project locally.
 
-## Expanding the ESLint configuration
+### 📦 Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Ensure you have the following installed:
 
-- Configure the top-level `parserOptions` property like this:
+- **Node.js** (v20.17.0 or higher)
+- **npm** (v10.8.2 or higher)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 🛠️ Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/easy-post-ia-frontend.git
+   cd easy-post-ia-frontend
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+### ⚡ Running the Project
+
+To start the development server:
+
+```bash
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The application will be available at `http://localhost:5173/`.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 🏗️ Building for Production
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+To build the project for production:
+
+```bash
+npm run build
 ```
+
+To preview the production build:
+
+```bash
+npm run preview
+```
+
+### 🔍 Linting and Formatting
+
+- **Linting with ESLint:**
+
+  ```bash
+  npm run lint
+  ```
+
+- **Oxlint for additional checks:**
+
+  ```bash
+  npm run lintox
+  ```
+
+- **Formatting with Prettier:**
+
+  ```bash
+  npm run format
+  ```
+
+### 📱 Build for Mobile
+
+- **iOS:**
+
+  ```bash
+  npm run buildIOS
+  ```
+
+- **Android:**
+
+  ```bash
+  npm run buildAndroid
+  ```
+
+### 📋 Additional Commands
+
+- **Prepare Husky Hooks:**
+
+  ```bash
+  npm run prepare
+  ```
+
+## 🧰 Tools & Technologies
+
+- **Frontend:** React, MUI, Emotion
+- **Build Tool:** Vite
+- **Code Quality:** ESLint, Prettier, Oxlint
+- **Type Checking:** TypeScript
+- **Mobile Compatibility:** Capacitor
+
+## 📜 License
+
+Easy Post IA © 2024 by Santiago Toquica Yanguas is licensed under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this license, visit [https://creativecommons.org/licenses/by-nc-nd/4.0/](https://creativecommons.org/licenses/by-nc-nd/4.0/).
