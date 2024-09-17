@@ -1,6 +1,7 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-
 import oxlintPlugin from 'vite-plugin-oxlint';
 
 // https://vitejs.dev/config/
@@ -15,5 +16,10 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: 'http://0.0.0.0:5173',
+  },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    setupFiles: ['./setupTests.ts'],
   },
 });

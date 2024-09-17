@@ -4,6 +4,7 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "composite": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -11,6 +12,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "jsx": "react-jsx", // This won't matter much in Node.js context, but it doesn't hurt
 
     /* Linting */
     "strict": true,
@@ -18,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"] // Only include the server-side or config files
 }
