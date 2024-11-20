@@ -18,8 +18,29 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "@adapters/*": ["src/adapters/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@models/*": ["src/models/*"],
+      "@pages/*": ["src/pages/*"],
+      "@router/*": ["src/router/*"],
+      "@services/*": ["src/services/*"],
+      "@i18n/*": ["src/_i18n/*"],
+      "@i18n-zod/*": ["src/_i18n-zod/*"],
+      "@utils/*": ["src/utils/*"],
+      "@stores/*": ["src/stores/*"]
+    },
+    "types": ["vitest/importMeta"]
   },
-  "include": ["src/**/*.{ts,tsx,js,jsx}", "custom.d.ts"], // Ensure .tsx files are included
+  "include": ["src/**/*.{ts,tsx,js,jsx}", "custom.d.ts", "src/**/*"], // Ensure .tsx files are included
   "exclude": ["node_modules"]
 }

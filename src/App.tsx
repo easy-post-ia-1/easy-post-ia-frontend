@@ -1,35 +1,72 @@
-import * as React from 'react';
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import Button from '@mui/material/Button';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { publicRoutes, privateRoutes, protectedRoutes } from '@router/routes';
+import PrivateRoute from '@router/PrivateRoute';
+import ProtectedRoute from '@router/ProtectedRoute';
+import PublicRoute from '@router/PublicRoute';
+import { CssBaseline } from '@mui/material';
+import { SnackbarProvider } from 'notistack';
+import Theme from '@components/materialui/Theme';
+import './_i18n';
+import AlertNotifistack from '@components/notifications/AlertNotistack';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App: React.FC = () => {
   return (
-    <div>
-      <div>
-        <a href="https://vitejs.dev" rel="noreferrer" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)} variant="contained">
-          {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </div>
+    <SnackbarProvider
+      Components={{
+        success: AlertNotifistack,
+        error: AlertNotifistack,
+        warning: AlertNotifistack,
+        info: AlertNotifistack,
+      }}
+    >
+      <Theme>
+        <CssBaseline>
+          <Router>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                {publicRoutes.map(({ path, component: Component }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      <PublicRoute>
+                        <Component />
+                      </PublicRoute>
+                    }
+                  />
+                ))}
+
+                {privateRoutes.map(({ path, component: Component, roles }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      <PrivateRoute roles={roles}>
+                        <Component />
+                      </PrivateRoute>
+                    }
+                  />
+                ))}
+
+                {protectedRoutes.map(({ path, component: Component, roles }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      <ProtectedRoute roles={roles}>
+                        <Component />
+                      </ProtectedRoute>
+                    }
+                  />
+                ))}
+              </Routes>
+            </Suspense>
+          </Router>
+        </CssBaseline>
+      </Theme>
+    </SnackbarProvider>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,21 @@
+{
+  "form.username": "Usuario",
+  "form.password": "Contraseña",
+  "form.confirm_passwd": "Confirmar contraseña",
+  "form.email": "Correo electrónica",
+  "form.btn_continue": "Continuar",
+  "form.btn_connect": "Conectate con {{socialNetwork}}",
+  "form.type_user": "Tipo de Usuario",
+
+  "login.btn_login": "Iniciar sesión",
+  "login.btn_signup": "Regítrate",
+  "login.divider": "O",
+  "login.started": "Empieza gratis",
+
+  "type.user.employee": "Empleado",
+  "type.user.employer": "Empleador",
+  "type.user.admin": "Administrador de la Compañia",
+  "type.user.info.employee": "Manages the creation and scheduling of posts",
+  "type.user.info.employer": "Oversees and approves scheduled posts",
+  "type.user.info.admin": "Manages users and platform automation"
+}
