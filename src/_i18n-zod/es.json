@@ -1,0 +1,25 @@
+{
+  "zod": {
+    "username": {
+      "min": "El nombre de usuario debe tener al menos 3 caracteres",
+      "max": "El nombre de usuario debe tener como máximo 20 caracteres",
+      "required": "El nombre de usuario es obligatorio"
+    },
+    "email": {
+      "invalid": "Formato de correo electrónico no válido",
+      "required": "El correo electrónico es obligatorio"
+    },
+    "password": {
+      "min": "La contraseña debe tener al menos 8 caracteres",
+      "max": "La contraseña debe tener como máximo 50 caracteres",
+      "uppercase": "La contraseña debe contener al menos una letra mayúscula",
+      "lowercase": "La contraseña debe contener al menos una letra minúscula",
+      "number": "La contraseña debe contener al menos un número",
+      "required": "La contraseña es obligatoria"
+    },
+    "role": {
+      "invalid": "Selección de rol no válida",
+      "required": "El rol es obligatorio"
+    }
+  }
+}

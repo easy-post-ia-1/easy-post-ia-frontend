@@ -1,0 +1,21 @@
+{
+  "form.username": "Username",
+  "form.password": "Password",
+  "form.confirm_passwd": "Confirm Password",
+  "form.email": "Email",
+  "form.btn_continue": "Continue",
+  "form.btn_connect": "Connect with {{socialNetwork}}",
+  "form.type_user": "Type User",
+
+  "login.btn_login": "Login",
+  "login.btn_signup": "Sign up",
+  "login.divider": "Or",
+  "login.started": "Get started for free",
+
+  "type.user.employee": "Employee",
+  "type.user.employer": "Employer",
+  "type.user.admin": "Company Admin",
+  "type.user.info.employee": "Manages the creation and scheduling of posts",
+  "type.user.info.employer": "Oversees and approves scheduled posts",
+  "type.user.info.admin": "Manages users and platform automation"
+}
