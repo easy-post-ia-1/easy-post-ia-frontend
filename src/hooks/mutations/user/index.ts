@@ -1,2 +1,2 @@
-export * from './userCreateSignUpMutation.tsx';
-export * from './userCreateSessionMutation.tsx';
+export * from './userCreateSignUpMutation.ts';
+export * from './userCreateSessionMutation.ts';

@@ -6,29 +6,30 @@ import { userService } from '@services/user.service';
 import { useUserStore } from '@stores/userStore';
 import { Data, ParamsAxios } from '@models/api.model';
 import { useMutation } from '@tanstack/react-query';
+import { useAuthStore } from '@stores/useAuthStore';
 
 export const userCreateSessionMutation = () => {
-  const enqueAlertNotification = useHandleAlertNotification();
+  const enqueuAlertNotification = useHandleAlertNotification();
   const { login } = useUserStore();
+  const { updateToken } = useAuthStore();
 
   return useMutation({
     mutationFn: (userLogin: LoginInfo) => {
       const data: ParamsAxios = { data: { ...userLogin } as Data };
       return userService.postLogin(data).call;
     },
-    onSuccess: ({ data }) => {
+    onSuccess: ({ data, headers }) => {
       if (data?.error?.length > 0) {
-        console.log('Error1 : ', data);
-        enqueAlertNotification(`${data.status.message}`, 'error');
+        enqueuAlertNotification(`${data.status.message}`, 'error');
         return;
       }
-      enqueAlertNotification(data.status.message, 'success');
+      const bearerToken = headers?.authorization?.split('Bearer ')[1];
+      enqueuAlertNotification(data.status.message, 'success');
       login(createUserAdapter({ ...data.user, isAuthenticated: true }));
+      updateToken(bearerToken);
     },
-
     onError: (error: ErrorSignUp) => {
-      console.log('Error2: ', error);
-      enqueAlertNotification(`${error?.['response']?.data?.status?.message}`, 'error');
+      enqueuAlertNotification(`${error?.['response']?.data?.status?.message}`, 'error');
     },
   });
 };

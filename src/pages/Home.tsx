@@ -1,9 +1,9 @@
-import AuthNavbar from '@components/navbar/AuthNavbar';
+import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
 
 const Home = () => {
   return (
     <div>
-      <AuthNavbar />
+      <AuthenticatedNavbar />
     </div>
   );
 };

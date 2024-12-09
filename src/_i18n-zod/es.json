@@ -20,6 +20,28 @@
     "role": {
       "invalid": "Selección de rol no válida",
       "required": "El rol es obligatorio"
+    },
+    "title": {
+      "min": "El título debe tener al menos 3 caracteres",
+      "max": "El título debe tener como máximo 50 caracteres",
+      "required": "El título es obligatorio"
+    },
+    "content": {
+      "min": "El contenido debe tener al menos 3 caracteres",
+      "max": "El contenido debe tener como máximo 500 caracteres",
+      "required": "El contenido es obligatorio"
+    },
+    "image": {
+      "invalid": "Formato de imagen no válido",
+      "required": "La imagen es obligatoria"
+    },
+    "tags": {
+      "invalid": "Formato de etiquetas no válido",
+      "required": "Las etiquetas son obligatorias"
+    },
+    "scheduledDate": {
+      "invalid": "Formato de fecha no válido",
+      "required": "La fecha es obligatoria"
     }
   }
 }

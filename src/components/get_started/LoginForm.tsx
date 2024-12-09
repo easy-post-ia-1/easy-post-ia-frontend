@@ -18,11 +18,7 @@ import { groupErrorMessages } from '@utils/errors';
 import CircularProgressBtnLoading from '@components/loading/CircularProgressBtnLoading';
 import { Error, LoginFormErrorValues } from '@models/error.model';
 import ErrorFormHelperText from './ErrorFormHelperText';
-
-const initialValues: LoginFormErrorValues = {
-  nickname: '',
-  passwd: '',
-};
+import { initialValuesLogin } from '@utils/constants';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -32,7 +28,7 @@ function LoginForm() {
   const [disabledLogin, setDisabledLogin] = useState(false);
   const navigate = useNavigate();
   const mutation = userCreateSessionMutation();
-  const [errorsForm, setErrorsForm] = useState<LoginFormErrorValues>(initialValues);
+  const [errorsForm, setErrorsForm] = useState<LoginFormErrorValues>(initialValuesLogin);
 
   const handleClickShowPassword = () => setShowPassword((show: boolean) => !show);
 
@@ -53,8 +49,8 @@ function LoginForm() {
         ?.map(({ message, path }: Error) => ({ message, path }))
         .filter((error): error is { message: string; path: string[] } => error !== undefined) || [];
 
-    const loginErrors = groupErrorMessages(formatErrors, 'login');
-    setErrorsForm(loginErrors);
+    const loginErrors = groupErrorMessages(formatErrors);
+    setErrorsForm(loginErrors as unknown as LoginFormErrorValues);
 
     setDisabledLogin(false);
   };

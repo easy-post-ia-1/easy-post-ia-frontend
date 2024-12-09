@@ -30,23 +30,16 @@ import ErrorFormHelperText from './ErrorFormHelperText';
 import { userCreateSignUpMutation } from '@hooks/mutations/user/userCreateSignUpMutation';
 import CircularProgressBtnLoading from '@components/loading/CircularProgressBtnLoading';
 import { useNavigate } from 'react-router-dom';
-
-const initialValues: UserSignUp = {
-  username: '',
-  email: '',
-  password: '',
-  confirmPasswd: '',
-  role: '',
-};
+import { initialValuesSignUp } from '@utils/constants';
 
 const SignUpForm = () => {
-  const [errorsForm, setErrorsForm] = useState<UserSignUp>(initialValues);
+  const [errorsForm, setErrorsForm] = useState(initialValuesSignUp);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [disabledSignUp, setDisabledSignUp] = useState(false);
   const mutation = userCreateSignUpMutation();
 
-  const { valuesForm, handleInputChange } = useForm(initialValues);
+  const { valuesForm, handleInputChange } = useForm(initialValuesSignUp);
   const { username = '', email = '', password = '', confirmPasswd = '', role = 'EMPLOYER' } = valuesForm;
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -70,7 +63,7 @@ const SignUpForm = () => {
         .filter((error): error is { message: string; path: string[] } => error !== undefined) || [];
 
     // Send notification error with hook and function
-    setErrorsForm(groupErrorMessages(formatErrors, 'signup'));
+    setErrorsForm(groupErrorMessages(formatErrors) as unknown as UserSignUp);
     setDisabledSignUp(false);
   };
 

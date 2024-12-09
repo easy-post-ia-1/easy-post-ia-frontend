@@ -8,7 +8,7 @@ import { useUserStore } from '@stores/userStore';
 import { useMutation } from '@tanstack/react-query';
 
 export const userCreateSignUpMutation = () => {
-  const enqueAlertNotification = useHandleAlertNotification();
+  const enqueuAlertNotification = useHandleAlertNotification();
   const { login } = useUserStore();
 
   return useMutation({
@@ -18,14 +18,14 @@ export const userCreateSignUpMutation = () => {
     },
     onSuccess: ({ data }) => {
       if (data?.errors?.length > 0) {
-        enqueAlertNotification(`${data.status.message}`, 'error');
+        enqueuAlertNotification(`${data.status.message}`, 'error');
         return;
       }
-      enqueAlertNotification(data.status.message, 'success');
+      enqueuAlertNotification(data.status.message, 'success');
       login(createUserAdapter({ ...data.user, isAuthenticated: true }));
     },
     onError: (error: ErrorSignUp) => {
-      enqueAlertNotification(`${error?.['response']?.data?.status?.message}`, 'error');
+      enqueuAlertNotification(`${error?.['response']?.data?.status?.message}`, 'error');
     },
   });
 };
