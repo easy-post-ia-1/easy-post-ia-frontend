@@ -19,9 +19,7 @@ function Posts() {
   const { t } = useTranslation();
   const { data } = usePosts();
 
-  const uploadFormSignUp = useCallback(() => {
-    
-  }, [valuesForm]);
+  const uploadFormSignUp = useCallback(() => {}, [valuesForm]);
 
   return (
     <div>
