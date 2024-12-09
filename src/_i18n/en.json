@@ -1,4 +1,7 @@
 {
+  "general.btn.loading": "Loading...",
+  "general.btn_edit": "Edit",
+
   "form.username": "Username",
   "form.password": "Password",
   "form.confirm_passwd": "Confirm Password",
@@ -17,5 +20,24 @@
   "type.user.admin": "Company Admin",
   "type.user.info.employee": "Manages the creation and scheduling of posts",
   "type.user.info.employer": "Oversees and approves scheduled posts",
-  "type.user.info.admin": "Manages users and platform automation"
+  "type.user.info.admin": "Manages users and platform automation",
+
+  "posts.title": "Posts",
+  "post.form.label.search": "Search by Title",
+  "post.form.btn.search": "Search",
+
+  "post.fab.save": "Save",
+  "post.fab.publish": "Publish",
+  "post.fab.delete": "Delete",
+  "post.title.create": "Create Post",
+  "post.title.edit": "Edit Post",
+  "post.form.label.title": "Title",
+  "post.form.label.desc": "Description",
+  "post.form.label.image": "Image",
+  "post.form.label.btn.image": "Upload image",
+  "post.form.label.preview": "Preview",
+  "post.form.label.tags": "Tags",
+  "post.form.label.date": "Publish Date",
+  "posts.form.label.search": "Search by Title",
+  "posts.form.btn_search": "Search"
 }

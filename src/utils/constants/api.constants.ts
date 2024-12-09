@@ -1,4 +1,4 @@
-import { ApiVersion } from '../enums/api.enums';
+import { ApiVersion } from '../enums/api.enum';
 
 export const USER_SERVICE: string = 'users';
 export const POSTS_SERVICE: string = 'posts';

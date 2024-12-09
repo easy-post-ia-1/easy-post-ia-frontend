@@ -1,1 +1,1 @@
-export * from './group-errors.ts';
+export * from './group-errors.error.ts';

@@ -1,1 +1,1 @@
-export * from './api.enums.ts';
+export * from './api.enum.ts';

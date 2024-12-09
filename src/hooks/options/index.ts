@@ -1,1 +1,2 @@
-export * from './useNavbarOptions.tsx';
+export * from './useNavbarOptions.ts';
+export * from './useBottomNavigationOptions.tsx';

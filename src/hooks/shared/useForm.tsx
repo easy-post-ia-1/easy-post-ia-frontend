@@ -1,20 +1,23 @@
+import { DateTime } from 'luxon';
 import { useState, ChangeEvent } from 'react';
 
-// Define a type for the form values
-interface FormValues {
-  [key: string]: string | number | Array<string | number>;
-}
+type TargetEvent<T> = {
+  target: {
+    name: string;
+    value: T | DateTime<boolean> | null | string;
+  };
+};
 
-const useForm = (initialState: FormValues = {}) => {
-  const [valuesForm, setValuesForm] = useState<FormValues>(initialState);
+function useForm<T>(initialState: T) {
+  const [valuesForm, setValuesForm] = useState<T>(initialState);
 
   // Function to reset the form to the initial state
-  const resetForm = (newFormState: FormValues = initialState) => {
+  const resetForm = (newFormState: T = initialState) => {
     setValuesForm(newFormState);
   };
 
   // Function to update form values based on input changes
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement> | TargetEvent<T>) => {
     const { name, value } = event.target;
     setValuesForm((prevValues) => ({
       ...prevValues,
@@ -23,6 +26,6 @@ const useForm = (initialState: FormValues = {}) => {
   };
 
   return { valuesForm, handleInputChange, resetForm };
-};
+}
 
 export default useForm;

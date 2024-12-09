@@ -2,8 +2,20 @@ import { lazy } from 'react';
 
 export const privateRoutes = [
   {
+    path: '/',
+    component: lazy(() => import('@pages/Home')), // Public Home page
+  },
+  {
     path: '/home',
     component: lazy(() => import('@pages/Home')), // Public Home page
+  },
+  {
+    path: '/posts',
+    component: lazy(() => import('@pages/Posts.tsx')), // Public Home page
+  },
+  {
+    path: '/posts/:id',
+    component: lazy(() => import('@pages/Post.tsx')), // Public Home page
   },
   {
     path: '/dashboard',
