@@ -1,0 +1,43 @@
+{
+  "general.btn.loading": "Cargando...",
+  "general.btn_edit": "Editar",
+
+  "form.username": "Usuario",
+  "form.password": "Contraseña",
+  "form.confirm_passwd": "Confirmar contraseña",
+  "form.email": "Correo electrónica",
+  "form.btn_continue": "Continuar",
+  "form.btn_connect": "Conectate con {{socialNetwork}}",
+  "form.type_user": "Tipo de Usuario",
+
+  "login.btn_login": "Iniciar sesión",
+  "login.btn_signup": "Regítrate",
+  "login.divider": "O",
+  "login.started": "Empieza gratis",
+
+  "type.user.employee": "Empleado",
+  "type.user.employer": "Empleador",
+  "type.user.admin": "Administrador de la Compañia",
+  "type.user.info.employee": "Manages the creation and scheduling of posts",
+  "type.user.info.employer": "Oversees and approves scheduled posts",
+  "type.user.info.admin": "Manages users and platform automation",
+
+  "posts.title": "Posts",
+  "post.form.label.search": "Buscar por título",
+  "post.form.btn.search": "Buscar",
+
+  "post.fab.save": "Guardar",
+  "post.fab.publish": "Publicar",
+  "post.fab.delete": "Eliminar",
+  "post.title.create": "Crear Publicación",
+  "post.title.edit": "Editar Publicación",
+  "post.form.label.title": "Título",
+  "post.form.label.description": "Contenido",
+  "post.form.label.image": "Imagen",
+  "post.form.label.preview": "Vista previa",
+  "post.form.label.tags": "Etiquetas",
+  "post.form.label.date": "Fecha de publicación",
+  "post.form.label.btn.image": "Subir imagen",
+  "posts.form.label.search": "Buscar port Titulo",
+  "posts.form.btn_search": "Buscar"
+}

@@ -1,0 +1,47 @@
+{
+  "zod": {
+    "username": {
+      "min": "El nombre de usuario debe tener al menos 3 caracteres",
+      "max": "El nombre de usuario debe tener como máximo 20 caracteres",
+      "required": "El nombre de usuario es obligatorio"
+    },
+    "email": {
+      "invalid": "Formato de correo electrónico no válido",
+      "required": "El correo electrónico es obligatorio"
+    },
+    "password": {
+      "min": "La contraseña debe tener al menos 8 caracteres",
+      "max": "La contraseña debe tener como máximo 50 caracteres",
+      "uppercase": "La contraseña debe contener al menos una letra mayúscula",
+      "lowercase": "La contraseña debe contener al menos una letra minúscula",
+      "number": "La contraseña debe contener al menos un número",
+      "required": "La contraseña es obligatoria"
+    },
+    "role": {
+      "invalid": "Selección de rol no válida",
+      "required": "El rol es obligatorio"
+    },
+    "title": {
+      "min": "El título debe tener al menos 3 caracteres",
+      "max": "El título debe tener como máximo 50 caracteres",
+      "required": "El título es obligatorio"
+    },
+    "content": {
+      "min": "El contenido debe tener al menos 3 caracteres",
+      "max": "El contenido debe tener como máximo 500 caracteres",
+      "required": "El contenido es obligatorio"
+    },
+    "image": {
+      "invalid": "Formato de imagen no válido",
+      "required": "La imagen es obligatoria"
+    },
+    "tags": {
+      "invalid": "Formato de etiquetas no válido",
+      "required": "Las etiquetas son obligatorias"
+    },
+    "scheduledDate": {
+      "invalid": "Formato de fecha no válido",
+      "required": "La fecha es obligatoria"
+    }
+  }
+}
