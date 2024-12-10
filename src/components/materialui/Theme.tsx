@@ -1,15 +1,12 @@
-import { ReactNode } from 'react';
-import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { ReactNode, useEffect } from 'react';
+import { ThemeProvider, createTheme, responsiveFontSizes, useColorScheme } from '@mui/material/styles';
+import { useAccesibilityConfig } from '@stores/useAccessibilityConfig';
 
 interface ThemeProps {
   children: ReactNode;
 }
 
-let theme = createTheme({
-  colorSchemes: {
-    dark: false,
-    light: true, // Enable light mode
-  },
+let defaultTheme = createTheme({
   palette: {
     primary: {
       main: '#2196f3',
@@ -108,13 +105,15 @@ let theme = createTheme({
   },
 });
 
-// TODO: Add button change theme
-const Theme: React.FC<ThemeProps> = ({ children }) => {
-  // const { darkTheme, lightTheme } = tankstack(state => state);
-  //let theme = useMemo(() => createTheme(isDarkMode ? darkTheme : lightTheme), [darkTheme, lightTheme, isDarkMode]);
-  theme = responsiveFontSizes(theme);
+defaultTheme = responsiveFontSizes(defaultTheme);
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+const Theme: React.FC<ThemeProps> = ({ children }) => {
+  const { darkMode } = useAccesibilityConfig();
+  const { setMode } = useColorScheme();
+
+  useEffect(() => setMode(darkMode ? 'dark' : 'light'), [darkMode]);
+
+  return <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>;
 };
 
 export default Theme;

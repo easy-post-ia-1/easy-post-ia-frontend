@@ -18,3 +18,22 @@ export interface AuthToken {
   errorToken: string | null;
   updateErrorToken: (error: string | null) => void;
 }
+
+export interface CountryType {
+  code: string;
+  label: string;
+  phone: string;
+  lang: string;
+  suggested?: boolean;
+}
+
+export type ConfigValue = Record<string, unknown>;
+
+export interface AccessibilityConfigZustand {
+  darkMode: boolean;
+  country: CountryType;
+  config: ConfigValue;
+  toggleDarkMode: () => void;
+  updateCountry: (country: CountryType) => void;
+  updateConfig: (option: ConfigValue) => void;
+}
