@@ -2,6 +2,18 @@
 
 This document lists breaking changes for each major release.
 
+## v.0.0.5 (10/12/2024)
+
+Feature, KAN-35, KAN-47: Add language, dark mode selector.
+
+- Create store to config in accesibility.
+- Create drawer to show options in front end.
+- Create Input selector language.
+- Create Switch to Dark Mode.
+- Create model to Zustand.
+- Create countries constant to initial values.
+- Modify package.json, lock, tsconfig to improve updates.
+
 ## v0.0.4 (09/12/2024)
 
 KAN-33, KAN-30, KAN-31, Feature: Create CRUD Post, Bottom Navigation.
