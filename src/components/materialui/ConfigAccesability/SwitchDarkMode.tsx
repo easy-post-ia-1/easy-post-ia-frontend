@@ -1,10 +1,12 @@
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import { useAccesibilityConfig } from '@stores/useAccessibilityConfig';
 
-const SwitchDarkMode = styled(Switch)(({ theme }) => ({
+const SwitchDarkModeMUI = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
+  marginLeft: -7,
   '& .MuiSwitch-switchBase': {
     margin: 1,
     padding: 0,
@@ -56,5 +58,11 @@ const SwitchDarkMode = styled(Switch)(({ theme }) => ({
     }),
   },
 }));
+
+function SwitchDarkMode() {
+  const { darkMode, toggleDarkMode } = useAccesibilityConfig();
+
+  return <SwitchDarkModeMUI checked={darkMode} onChange={() => toggleDarkMode()} />;
+}
 
 export default SwitchDarkMode;

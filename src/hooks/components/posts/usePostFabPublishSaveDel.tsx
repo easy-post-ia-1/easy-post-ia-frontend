@@ -52,7 +52,6 @@ function usePostFabPublishSaveDel({ valuesForm, id, handleErrorFormat = () => {}
             return;
           }
 
-          console.log('valuesForm', id);
           if (id === -1) {
             const cpyPost = { ...valuesForm };
             delete cpyPost.id;
