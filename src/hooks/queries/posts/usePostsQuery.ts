@@ -1,21 +1,22 @@
 import useHandleAlertNotification from '@hooks/shared/useAlertNotification';
 import { postsService } from '@services/posts.service';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-export const usePosts = () => {
+export const usePosts = ({ page = 1, pageSize = 10 } = {}) => {
   const enqueueAlertNotification = useHandleAlertNotification();
 
   return useQuery({
-    queryKey: ['posts'],
+    queryKey: ['posts', page, pageSize],
     queryFn: async () => {
       try {
-        const { data } = await postsService.index().call;
+        const { data } = await postsService.index({ data: { page, page_size: pageSize } }).call;
         return data;
       } catch (error) {
         enqueueAlertNotification('Failed to fetch posts', 'error');
         throw error;
       }
     },
+    placeholderData: keepPreviousData,
   });
 };
 

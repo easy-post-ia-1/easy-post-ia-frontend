@@ -17,9 +17,9 @@ const postLogin = ({ configService = { version: 'v1' }, data = {} }: ParamsAxios
   };
 };
 
-const getUser = ({ data = {}, configService = { version: 'v1' } }: ParamsAxios): ResponseAxiosService => {
+const getUser = ({ configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
   return {
-    call: apiClient().get(`/${configService?.version}/${USER_SERVICE}/user/${data?.id}`),
+    call: apiClient().get(`/${configService?.version}/${USER_SERVICE}/me`),
   };
 };
 
