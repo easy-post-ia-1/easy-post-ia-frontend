@@ -4,6 +4,7 @@ import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplica
 import SwitchDarkMode from './SwitchDarkMode';
 import CountrySelect from './CountrySelect';
 
+// TODO: Translations
 function DrawerConfig() {
   const [open, setOpen] = useState(false);
 
@@ -14,7 +15,7 @@ function DrawerConfig() {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+      <Box sx={{ position: 'absolute', top: '10rem', right: 0 }}>
         <IconButton aria-label="settings" size="large" onClick={toggleDrawer(true)}>
           <SettingsApplicationsRoundedIcon />
         </IconButton>

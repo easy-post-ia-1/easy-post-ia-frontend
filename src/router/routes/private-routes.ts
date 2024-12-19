@@ -18,6 +18,10 @@ export const privateRoutes = [
     component: lazy(() => import('@pages/Post.tsx')), // Public Home page
   },
   {
+    path: '/account',
+    component: lazy(() => import('@pages/Account.tsx')), // Public Home page
+  },
+  {
     path: '/dashboard',
     component: lazy(() => import('@pages/Dashboard')), // Private Dashboard page
     roles: ['user', 'admin'],
