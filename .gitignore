@@ -58,3 +58,6 @@ debug.log
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+# TS config
+tsconfig.*.tsbuildinfo

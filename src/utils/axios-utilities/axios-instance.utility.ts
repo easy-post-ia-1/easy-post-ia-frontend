@@ -1,12 +1,12 @@
 import { useAuthStore } from '@stores/useAuthStore';
+import { configEnv } from '@utils/environment/config_variables';
 import axios, { AxiosInstance } from 'axios';
-const VITE_API_URL: string | undefined = import.meta.env.VITE_API_URL;
 
 export const apiClient = (): AxiosInstance => {
-  if (!VITE_API_URL) throw new Error('Define API_URL');
+  if (!configEnv.VITE_API_URL) throw new Error('Define API_URL');
 
   const api = axios.create({
-    baseURL: `${VITE_API_URL}`,
+    baseURL: `${configEnv.VITE_API_URL}`,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
