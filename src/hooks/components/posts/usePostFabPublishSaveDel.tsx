@@ -1,6 +1,6 @@
 import { uploadPostAdapter } from '@adapters/post.adapter';
 import { usePostCreate, usePostUpdate, usePostDestroy } from '@hooks/mutations/posts/usePostsMutation';
-import { PostFormValues } from '@models/post.model';
+import { PostFabPublishSaveDelProps, PostFormValues } from '@models/post.model';
 import { groupErrorMessages } from '@utils/errors';
 import { postSchema } from '@utils/validations/post';
 import { t } from 'i18next';
@@ -10,12 +10,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Error } from '@models/error.model';
-
-interface PostFabPublishSaveDelProps {
-  valuesForm: PostFormValues;
-  id: number;
-  handleErrorFormat: (errorFormat: PostFormValues) => void;
-}
 
 // TODO: Refactorize and simplified more save and publish
 function usePostFabPublishSaveDel({ valuesForm, id, handleErrorFormat = () => {} }: PostFabPublishSaveDelProps) {
@@ -52,7 +46,6 @@ function usePostFabPublishSaveDel({ valuesForm, id, handleErrorFormat = () => {}
             return;
           }
 
-          console.log('valuesForm', id);
           if (id === -1) {
             const cpyPost = { ...valuesForm };
             delete cpyPost.id;

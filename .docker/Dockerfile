@@ -2,11 +2,11 @@ FROM node:20.17-alpine
 
 WORKDIR /easy-post-ia-frontend
 
-COPY package.json .
+COPY ../package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY ../ .
 
 EXPOSE 5173
 

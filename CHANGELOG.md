@@ -2,6 +2,47 @@
 
 This document lists breaking changes for each major release.
 
+## v.0.0.7 (21-02-2025)
+
+### Features
+
+- **KAN-49**: Add skeleton for future authentication.
+- Add hooks for login via Facebook and Google.
+- Configure Capacitor and components for OAuth handling.
+- Create environment variable files.
+- Configure Nginx with Docker and Certbot for certificates.
+- Improve Dockerfile.
+- Fix pre-commit and pre-push hooks.
+
+## v.0.0.6 (18/12/2024)
+
+Feature, KAN-3, KAN-50, KAN-44: Create Strategy, profile, pagination.
+
+- Create adaptors to strategy.
+- Create Data range componnent to look from to post order.
+- Position down the config.
+- Create component CreateStrategy to handle the strategy.
+- Pagination in Posts component and hookd to handle logic.
+- Create interface to strategy, posts.
+- Create Profile component.
+- Create news skeleton.
+- Add private route /account.
+- Update services to accept query params.
+- Create validator strategy.
+- Create initial values about Strategy.
+
+## v.0.0.5 (10/12/2024)
+
+Feature, KAN-35, KAN-47: Add language, dark mode selector.
+
+- Create store to config in accesibility.
+- Create drawer to show options in front end.
+- Create Input selector language.
+- Create Switch to Dark Mode.
+- Create model to Zustand.
+- Create countries constant to initial values.
+- Modify package.json, lock, tsconfig to improve updates.
+
 ## v0.0.4 (09/12/2024)
 
 KAN-33, KAN-30, KAN-31, Feature: Create CRUD Post, Bottom Navigation.

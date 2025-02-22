@@ -3,9 +3,10 @@ import { apiClient } from '@utils/axios-utilities';
 
 const POST_SERVICE = 'posts';
 
-const getIndex = ({ configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
+const getIndex = ({ data, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
+  const queryString = new URLSearchParams(data as Record<string, string>).toString();
   return {
-    call: apiClient().get(`/${configService?.version}/${POST_SERVICE}`),
+    call: apiClient().get(`/${configService?.version}/${POST_SERVICE}?${queryString}`),
   };
 };
 

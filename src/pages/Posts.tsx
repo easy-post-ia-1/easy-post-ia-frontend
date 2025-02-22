@@ -1,5 +1,14 @@
 import useForm from '@hooks/shared/useForm';
-import { Box, Button, FormControl, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Pagination,
+  Typography,
+} from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import PostsCards from '@components/posts/PostsCards';
@@ -8,8 +17,9 @@ import { initialValuesPostsQuery } from '@utils/constants';
 import { usePosts } from '@hooks/queries/posts/usePostsQuery';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
 import AddNewPost from '@components/posts/AddNewPost';
+import usePaginationItemSize from '@hooks/shared/usePaginationItemSize';
 
-// TODO: Implement pagination and filters
+// TODO: Implement filters
 function Posts() {
   const { valuesForm, handleInputChange } = useForm(initialValuesPostsQuery);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -17,7 +27,9 @@ function Posts() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [disabledSignUp, setDisabledSignUp] = useState(false);
   const { t } = useTranslation();
-  const { data } = usePosts();
+  const { currentPage, handlePageChange } = usePaginationItemSize();
+  const { data = {} } = usePosts({ page: currentPage, pageSize: 10 });
+  const { pagination } = data;
 
   const uploadFormSignUp = useCallback(() => {}, [valuesForm]);
 
@@ -54,6 +66,9 @@ function Posts() {
         </Box>
         <div style={{ flex: 4 }}>
           <PostsCards posts={data?.posts} />
+          <Box mt={8} mb={2} display="flex" justifyContent="center">
+            <Pagination count={pagination?.pages} page={currentPage} onChange={handlePageChange} />
+          </Box>
         </div>
         <AddNewPost />
       </Box>

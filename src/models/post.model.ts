@@ -30,3 +30,9 @@ export interface PostFabOptionsProps {
   valuesForm: PostFormValues;
   handleErrorFormat: (errorFormat: PostFormValues) => void;
 }
+
+export interface PostFabPublishSaveDelProps {
+  valuesForm: PostFormValues;
+  id: number;
+  handleErrorFormat: (errorFormat: PostFormValues) => void;
+}
