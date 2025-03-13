@@ -22,6 +22,7 @@ import { initialValuesLogin } from '@utils/constants';
 import useLoginGoogle from '@hooks/shared/useLoginGoogle';
 import useLoginFacebook from '@hooks/shared/useLoginFacebook';
 import FacebookLoginButton from '@kazion/react-facebook-login';
+import { configEnv } from '@utils/environment/config_variables';
 
 function LoginForm() {
   const { t } = useTranslation();
