@@ -5,14 +5,14 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Box, Typography } from '@mui/material';
 
 interface DateRangeValueProps {
-  fromSchedule: DateTime | null;
-  toSchedule: DateTime | null;
-  handleInputChange: (event: { target: { name: string; value: DateTime | null } }) => void;
+  fromSchedule: string | null;
+  toSchedule: string | null;
+  handleInputChange: (event: { target: { name: string; value: string | null } }) => void;
 }
 
 function DateRangeValue({
-  fromSchedule = DateTime.now(),
-  toSchedule = DateTime.now().plus({ weeks: 1 }),
+  fromSchedule = DateTime.now().toISO(),
+  toSchedule = DateTime.now().plus({ weeks: 1 }).toISO(),
   handleInputChange = () => {},
 }: DateRangeValueProps) {
   return (
@@ -25,8 +25,12 @@ function DateRangeValue({
             </Typography>
             <DateTimePicker
               label="From"
-              value={fromSchedule}
-              onChange={(newValue) => handleInputChange({ target: { name: 'fromSchedule', value: newValue } })}
+              value={fromSchedule ? DateTime.fromISO(fromSchedule) : null}
+              onChange={(newValue) =>
+                handleInputChange({
+                  target: { name: 'fromSchedule', value: newValue?.toISO() ?? null },
+                })
+              }
             />
           </div>
           <div style={{ marginTop: '16px' }}>
@@ -35,9 +39,13 @@ function DateRangeValue({
             </Typography>
             <DateTimePicker
               label="To"
-              value={toSchedule}
-              onChange={(newValue) => handleInputChange({ target: { name: 'toSchedule', value: newValue } })}
-              minDateTime={fromSchedule || undefined}
+              value={toSchedule ? DateTime.fromISO(toSchedule) : null}
+              onChange={(newValue) =>
+                handleInputChange({
+                  target: { name: 'toSchedule', value: newValue?.toISO() ?? null },
+                })
+              }
+              minDateTime={fromSchedule ? DateTime.fromISO(fromSchedule) : undefined}
             />
           </div>
         </div>

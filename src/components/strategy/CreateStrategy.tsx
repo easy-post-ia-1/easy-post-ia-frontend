@@ -1,3 +1,4 @@
+import { uploadStrategyAdapter } from '@adapters/strategy.adapter';
 import DateRangeValue from '@components/date_range/DateRangeCalendarValue';
 import { createStrategyMutation } from '@hooks/mutations/strategy/useCreateStrategyMutation';
 import useForm from '@hooks/shared/useForm';
@@ -16,18 +17,19 @@ function CreateStrategy() {
   const { valuesForm, handleInputChange, resetForm } = useForm(initialValuesStrategy);
   const {
     description = '',
-    fromSchedule = DateTime.now(),
-    toSchedule = DateTime.now().plus({ weeks: 1 }),
+    fromSchedule = DateTime.now().toISO(),
+    toSchedule = DateTime.now().plus({ weeks: 1 }).toISO(),
   } = valuesForm;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const mutation = createStrategyMutation();
   const [errorsForm, setErrorsForm] = useState(initialValuesStrategy);
 
   const handleErrorFormat = (errorFormat: StrategyValues) => setErrorsForm(errorFormat);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const handlePublish = () => {
     const { success = false, error = null } = marketingStrategy.safeParse(valuesForm);
 
+    console.log(`success: ${error} - ${success} - ${typeof valuesForm?.toSchedule} - ${valuesForm?.toSchedule}`);
     if (!success) {
       const formatErrors =
         error?.issues
@@ -38,8 +40,8 @@ function CreateStrategy() {
       return;
     }
 
-    //mutation.mutate(uploadStrategyAdapter(valuesForm));
-    // TODO: Mutation
+    console.log('Values form:', valuesForm);
+    mutation.mutate(uploadStrategyAdapter(valuesForm));
     resetForm(initialValuesStrategy);
   };
 
@@ -58,7 +60,9 @@ function CreateStrategy() {
       />
       <DateRangeValue fromSchedule={fromSchedule} toSchedule={toSchedule} handleInputChange={handleInputChange} />
 
-      <Button variant="contained">Publish</Button>
+      <Button variant="contained" onClick={() => handlePublish()}>
+        Publish
+      </Button>
     </div>
   );
 }

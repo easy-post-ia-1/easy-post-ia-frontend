@@ -1,9 +1,7 @@
-import { DateTime } from 'luxon';
-
 export interface StrategyValues {
   description: string;
-  fromSchedule: DateTime;
-  toSchedule: DateTime;
+  fromSchedule: string;
+  toSchedule: string;
 }
 
 export interface StrategyEndpoint {
