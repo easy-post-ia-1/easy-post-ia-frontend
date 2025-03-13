@@ -2,6 +2,15 @@
 
 This document lists breaking changes for each major release.
 
+## v.0.0.7 (12/02/2054)
+
+- Feature, KAN-32, KAN-57: Configure initial strategies.
+
+- Create constant, adapters, validators to make strategy.
+- Update endpoints to create strategy.
+- Create mutations to modify strategy.
+- Update DateRange to handle the dates.
+
 ## v.0.0.6 (18/12/2024)
 
 Feature, KAN-3, KAN-50, KAN-44: Create Strategy, profile, pagination.

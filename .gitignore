@@ -58,3 +58,7 @@ debug.log
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+# Buil info
+*.tsbuildinfo
+
