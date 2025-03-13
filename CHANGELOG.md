@@ -2,7 +2,7 @@
 
 This document lists breaking changes for each major release.
 
-## v.0.0.7 (12/02/2054)
+## v.0.0.8 (12/02/2054)
 
 - Feature, KAN-32, KAN-57: Configure initial strategies.
 
@@ -10,6 +10,18 @@ This document lists breaking changes for each major release.
 - Update endpoints to create strategy.
 - Create mutations to modify strategy.
 - Update DateRange to handle the dates.
+
+## v.0.0.7 (21-02-2025)
+
+### Features
+
+- **KAN-49**: Add skeleton for future authentication.
+- Add hooks for login via Facebook and Google.
+- Configure Capacitor and components for OAuth handling.
+- Create environment variable files.
+- Configure Nginx with Docker and Certbot for certificates.
+- Improve Dockerfile.
+- Fix pre-commit and pre-push hooks.
 
 ## v.0.0.6 (18/12/2024)
 

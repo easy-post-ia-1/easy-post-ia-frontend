@@ -19,6 +19,9 @@ import CircularProgressBtnLoading from '@components/loading/CircularProgressBtnL
 import { Error, LoginFormErrorValues } from '@models/error.model';
 import ErrorFormHelperText from './ErrorFormHelperText';
 import { initialValuesLogin } from '@utils/constants';
+import useLoginGoogle from '@hooks/shared/useLoginGoogle';
+import useLoginFacebook from '@hooks/shared/useLoginFacebook';
+import FacebookLoginButton from '@kazion/react-facebook-login';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -29,6 +32,8 @@ function LoginForm() {
   const navigate = useNavigate();
   const mutation = userCreateSessionMutation();
   const [errorsForm, setErrorsForm] = useState<LoginFormErrorValues>(initialValuesLogin);
+  const { loginFacebook } = useLoginFacebook();
+  const { loginGoogle } = useLoginGoogle();
 
   const handleClickShowPassword = () => setShowPassword((show: boolean) => !show);
 
@@ -132,9 +137,23 @@ function LoginForm() {
         startIcon={<FacebookIcon style={{ fill: 'white' }} />}
         variant="contained"
         size="large"
+        onClick={() => loginFacebook()}
       >
         {t('form.btn_connect', { socialNetwork: 'Facebook' })}
       </Button>
+
+      <FacebookLoginButton
+        appId={configEnv.VITE_FACEBOOK_APP_ID_WEB}
+        onSuccess={(response) => {
+          console.log('Login Success!', response);
+        }}
+        onFail={(error) => {
+          console.log('Login Failed!', error);
+        }}
+        onProfileSuccess={(response) => {
+          console.log('Get Profile Success!', response);
+        }}
+      />
 
       <Box mt={2} />
       <Button
@@ -142,6 +161,7 @@ function LoginForm() {
         startIcon={<GoogleIcon style={{ fill: 'black' }} />}
         variant="contained"
         size="large"
+        onClick={() => loginGoogle()}
       >
         {t('form.btn_connect', { socialNetwork: 'Google' })}
       </Button>

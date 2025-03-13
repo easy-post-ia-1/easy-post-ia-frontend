@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/toqyang/.android/debug.keystore')
+            keyAlias 'androiddebugkeyothera'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
     namespace "com.example.app"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
