@@ -71,7 +71,7 @@ jobs:
     
     - name: Download task definition
       run: |
-        aws ecs describe-task-definition --task-definition deploy-frontend-prod --query taskDefinition > task-definition.json
+        aws ecs describe-task-definition --task-definition easy-post-ia-frontend-prod --query taskDefinition > task-definition.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
@@ -87,7 +87,7 @@ jobs:
     - name: Deploy to ECS
       uses: imehedi/actions-awscli-v2@latest
       with:
-        args: ecs update-service --cluster ProdFrontEndCluster --service deploy-frontend-prod-service --force-new-deployment
+        args: ecs update-service --cluster ProdFrontEndCluster --service easy-post-ia-frontend-prod --force-new-deployment
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
