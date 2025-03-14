@@ -15,7 +15,6 @@
     "buildIOS": "vite build && npx cap sync && npx cap open ios && npx cap run ios",
     "buildAndroid": "vite build && npx cap sync && npx cap open android && npx cap run android",
     "preview": "vite preview",
-    "prepare": "husky",
     "test": "vitest run",
     "test:unit": "vitest run --dir tests/unit",
     "test:all": "vitest run",
