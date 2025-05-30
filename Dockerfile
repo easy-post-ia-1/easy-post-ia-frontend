@@ -1,5 +1,5 @@
 # Use official Node.js runtime as base image
-FROM node:18-alpine
+FROM node:20-bullseye
 
 # Set working directory
 WORKDIR /app
@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose port 5173 (Vite default)
 EXPOSE 80
 
 # Start the Vite development server
-CMD ["npm", "run", "dev"]
+ENTRYPOINT ["npm", "run", "dev"]
+

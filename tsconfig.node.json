@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest"],
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
@@ -20,5 +21,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"] // Only include the server-side or config files
+  "include": ["vite.config.ts"] // Only include the server-side or config files,
 }
