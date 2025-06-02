@@ -1,12 +1,14 @@
-/// <reference types="vitest" />
 /// <reference types="vite/client" />
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
+import { defineConfig as testConfig, mergeConfig } from 'vitest/config';
+import 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import oxlintPlugin from 'vite-plugin-oxlint';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config = defineConfig({
   plugins: [react(), oxlintPlugin()],
   resolve: {
     alias: {
@@ -26,18 +28,24 @@ export default defineConfig({
     },
   },
   preview: {
-    port: 5173,
+    port: 3000,
     strictPort: true,
   },
   server: {
-    port: 5173,
+    port: 3000,
     strictPort: true,
     host: true,
-    origin: 'http://0.0.0.0:5173',
+    origin: 'http://0.0.0.0:3000',
+    allowedHosts: true,
   },
+});
+
+const test = testConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
     setupFiles: ['./setupTests.ts'],
   },
 });
+
+export default mergeConfig(config, test);

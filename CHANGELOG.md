@@ -2,7 +2,21 @@
 
 This document lists breaking changes for each major release.
 
-## v.0.0.8 (12/02/2054)
+## v.0.0.9 (29/05/2025)
+
+- Feature, KAN-61, KAN-56: Refactor Docker setup and update dependencies
+
+- Renamed frontend service from `react-vite` to `easy-post-frontend` in `docker-compose.yml`.
+- Updated port mapping from `80:5173` to `3000:3000`.
+- Added healthcheck for the frontend service.
+- Updated base image in `Dockerfile` from `node:18-alpine` to `node:20-bullseye`.
+- Changed command to `ENTRYPOINT` in `Dockerfile`.
+- Updated `vite` version from `5.4.6` to `6.3.5` in `package.json` and `package-lock.json`.
+- Adjusted TypeScript configuration to include additional types for `vitest`.
+- Updated Vite server configuration to use port `3000` and adjusted allowed hosts.
+- Removed obsolete Docker files and configurations.
+
+## v.0.0.8 (12/02/2025)
 
 - Feature, KAN-32, KAN-57: Configure initial strategies.
 

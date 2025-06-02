@@ -39,7 +39,7 @@
       "@utils/*": ["src/utils/*"],
       "@stores/*": ["src/stores/*"]
     },
-    "types": ["vitest/importMeta"]
+    "types": ["vitest/importMeta", "vitest", "vite/client"]
   },
   "include": ["src/**/*.{ts,tsx,js,jsx}", "custom.d.ts", "src/**/*"], // Ensure .tsx files are included
   "exclude": ["node_modules"]
