@@ -39,5 +39,14 @@
   "post.form.label.tags": "Tags",
   "post.form.label.date": "Publish Date",
   "posts.form.label.search": "Search by Title",
-  "posts.form.btn_search": "Search"
+  "posts.form.btn_search": "Search",
+
+  "account": {
+    "socialStatus": {
+      "title": "Company Social Networks",
+      "errorLoad": "Failed to load company social network status.",
+      "noAccountsConfigured": "No social network accounts configured.",
+      "unavailable": "Social network information is currently unavailable."
+    }
+  }
 }

@@ -39,5 +39,14 @@
   "post.form.label.date": "Fecha de publicación",
   "post.form.label.btn.image": "Subir imagen",
   "posts.form.label.search": "Buscar port Titulo",
-  "posts.form.btn_search": "Buscar"
+  "posts.form.btn_search": "Buscar",
+
+  "account": {
+    "socialStatus": {
+      "title": "Redes Sociales de la Empresa",
+      "errorLoad": "Error al cargar el estado de las redes sociales de la empresa.",
+      "noAccountsConfigured": "No hay cuentas de redes sociales configuradas.",
+      "unavailable": "La información de las redes sociales no está disponible actualmente."
+    }
+  }
 }

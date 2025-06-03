@@ -13,3 +13,8 @@ export const initialValuesLogin: LoginFormErrorValues = {
   nickname: '',
   passwd: '',
 };
+
+export const USER_QUERY_KEYS = {
+  PROFILE: 'profile', // Example, if useGetAccount uses something like this
+  COMPANY_SOCIAL_STATUS: 'companySocialStatus',
+};

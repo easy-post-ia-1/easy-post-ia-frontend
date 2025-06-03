@@ -22,3 +22,8 @@ export interface ParamsAxios {
 export interface ResponseAxiosService {
   call: Promise<AxiosResponse>;
 }
+
+export interface StatusSuccess {
+  code: number;
+  message: string;
+}

@@ -17,6 +17,12 @@ const postLogin = ({ configService = { version: 'v1' }, data = {} }: ParamsAxios
   };
 };
 
+const getCompanySocialStatus = ({ configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
+  return {
+    call: apiClient().get(`/${configService?.version}/${USER_SERVICE}/me/company_social_status`),
+  };
+};
+
 const getUser = ({ configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
   return {
     call: apiClient().get(`/${configService?.version}/${USER_SERVICE}/me`),
@@ -41,4 +47,5 @@ export const userService = {
   getUser,
   deleteLogout,
   postSignUp,
+  getCompanySocialStatus,
 };
