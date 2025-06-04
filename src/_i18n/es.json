@@ -48,5 +48,21 @@
       "noAccountsConfigured": "No hay cuentas de redes sociales configuradas.",
       "unavailable": "La información de las redes sociales no está disponible actualmente."
     }
+  },
+  "strategiesOverview": {
+    "title": "Estrategias",
+    "errors": {
+      "fetch": "Error al cargar las estrategias. Por favor, inténtalo de nuevo más tarde."
+    },
+    "emptyState": "No se encontraron estrategias. Comienza creando una nueva estrategia.",
+    "loading": "Cargando estrategias..."
+  },
+  "calendarView": {
+    "title": "Calendario",
+    "errors": {
+      "fetch": "Error al cargar los datos del calendario. Por favor, inténtalo de nuevo más tarde."
+    },
+    "emptyState": "No hay eventos programados en el calendario.",
+    "loading": "Cargando calendario..."
   }
 }

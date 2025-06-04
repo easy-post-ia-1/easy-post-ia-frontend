@@ -48,5 +48,21 @@
       "noAccountsConfigured": "No social network accounts configured.",
       "unavailable": "Social network information is currently unavailable."
     }
+  },
+  "strategiesOverview": {
+    "title": "Strategies",
+    "errors": {
+      "fetch": "Failed to load strategies. Please try again later."
+    },
+    "emptyState": "No strategies found. Get started by creating a new strategy.",
+    "loading": "Loading strategies..."
+  },
+  "calendarView": {
+    "title": "Calendar",
+    "errors": {
+      "fetch": "Failed to load calendar data. Please try again later."
+    },
+    "emptyState": "No events scheduled in the calendar.",
+    "loading": "Loading calendar..."
   }
 }
