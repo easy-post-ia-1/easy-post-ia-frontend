@@ -1,4 +1,5 @@
 import type { DateTime } from 'luxon';
+import { FetchedStrategy } from './strategy.model';
 
 export interface PostFormValues {
   id?: number;
@@ -36,3 +37,78 @@ export interface PostFabPublishSaveDelProps {
   id: number;
   handleErrorFormat: (errorFormat: PostFormValues) => void;
 }
+
+export interface Post {
+  id: number;
+  title: string;
+  description: string;
+  status: number;
+  programming_date_to_post: string;
+  is_published: boolean;
+  tags: string;
+  strategy?: FetchedStrategy;
+  error_response?: string;
+  success_response?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface StatusDisplay {
+  name: string;
+  color: string;
+  key: string;
+}
+
+// Post status constants
+export const POST_STATUS = {
+  PENDING: {
+    key: 'pending',
+    name: 'Pending',
+    color: '#FFA500' // Orange
+  },
+  PUBLISHING: {
+    key: 'publishing',
+    name: 'Publishing',
+    color: '#ADD8E6' // Light Blue
+  },
+  PUBLISHED: {
+    key: 'published',
+    name: 'Published',
+    color: '#90EE90' // Light Green
+  },
+  FAILED_IMAGE: {
+    key: 'failed_image',
+    name: 'Image Upload Failed',
+    color: '#FF6B6B' // Red
+  },
+  FAILED_PUBLISH: {
+    key: 'failed_publish',
+    name: 'Publication Failed',
+    color: '#FF6B6B' // Red
+  },
+  FAILED_NETWORK: {
+    key: 'failed_network',
+    name: 'Network Error',
+    color: '#FF6B6B' // Red
+  },
+  FAILED_AUTH: {
+    key: 'failed_auth',
+    name: 'Authentication Failed',
+    color: '#FF6B6B' // Red
+  },
+  CANCELLED: {
+    key: 'cancelled',
+    name: 'Cancelled',
+    color: '#F08080' // Light Coral
+  },
+  DRAFT: {
+    key: 'draft',
+    name: 'Draft',
+    color: '#A9A9A9' // Dark Grey
+  },
+  SCHEDULED: {
+    key: 'scheduled',
+    name: 'Scheduled',
+    color: '#ADD8E6' // Light Blue
+  }
+} as const;

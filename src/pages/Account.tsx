@@ -12,13 +12,17 @@ import {
   Alert,
   Grid,
   Paper,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useCompanySocialStatus } from '@hooks/queries/user/useCompanySocialStatusQuery';
-import { AdaptedCompanySocialStatus } from '@models/social.model';
+import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
 import { useTranslation } from 'react-i18next';
 
 function Account() {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data = { user: {} } } = useGetAccount();
   const user = createUserAdapter(data?.user);
   const {
@@ -30,8 +34,8 @@ function Account() {
 
   return (
     <>
-      <AuthenticatedNavbar />
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
+      {!isMobile && <AuthenticatedNavbar />}
+      <Container maxWidth="sm" sx={{ mt: 4, pb: isMobile ? 8 : 0 }}>
         {/* Existing User Profile Box */}
         <Box display="flex" flexDirection="column" alignItems="center">
           <Avatar alt="Profile Image" sx={{ width: 100, height: 100, mb: 2 }} />
@@ -67,7 +71,7 @@ function Account() {
                       <Grid item xs={12} key={network.name}> {/* Assuming network.name is unique */}
                         <FormControlLabel
                           control={<Checkbox checked={network.hasCredentials} disabled />}
-                          label={network.name} {/* Name is already capitalized by adapter */}
+                          label={network.name}
                         />
                       </Grid>
                     ))}
@@ -84,6 +88,7 @@ function Account() {
           )}
         </Box>
       </Container>
+      {isMobile && <MobileBottomNavigation />}
     </>
   );
 }

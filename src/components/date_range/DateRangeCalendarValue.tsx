@@ -3,6 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface DateRangeValueProps {
   fromSchedule: string | null;
@@ -15,16 +16,18 @@ function DateRangeValue({
   toSchedule = DateTime.now().plus({ weeks: 1 }).toISO(),
   handleInputChange = () => {},
 }: DateRangeValueProps) {
+  const { t } = useTranslation();
+
   return (
     <Box sx={{ my: 4 }}>
       <LocalizationProvider dateAdapter={AdapterLuxon}>
         <div>
           <div>
             <Typography variant="body1" sx={{ mb: 2 }}>
-              From:
+              {t('calendarView.dateRange.from')}:
             </Typography>
             <DateTimePicker
-              label="From"
+              label={t('calendarView.dateRange.from')}
               value={fromSchedule ? DateTime.fromISO(fromSchedule) : null}
               onChange={(newValue) =>
                 handleInputChange({
@@ -35,10 +38,10 @@ function DateRangeValue({
           </div>
           <div style={{ marginTop: '16px' }}>
             <Typography variant="body1" sx={{ mb: 2 }}>
-              To:
+              {t('calendarView.dateRange.to')}:
             </Typography>
             <DateTimePicker
-              label="To"
+              label={t('calendarView.dateRange.to')}
               value={toSchedule ? DateTime.fromISO(toSchedule) : null}
               onChange={(newValue) =>
                 handleInputChange({

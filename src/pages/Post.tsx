@@ -11,6 +11,8 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
@@ -25,8 +27,8 @@ import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { usePostShow } from '@hooks/queries/posts/usePostsQuery';
 import { useParams } from 'react-router-dom';
 import { createPostAdapter } from '@adapters/post.adapter';
-import { PostFormValues } from '@models/post.model';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
+import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
 
 function Post() {
   const { id } = useParams();
@@ -34,6 +36,8 @@ function Post() {
   const [errorsForm, setErrorsForm] = useState(initialValuesPost);
   const { title = '', description = '', imageUrl = '', tags = '', programmingDateToPost } = valuesForm;
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data } = usePostShow(Number(id));
 
   useEffect(() => {
@@ -44,9 +48,9 @@ function Post() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <AuthenticatedNavbar />
-      <Container maxWidth="md" sx={{ mt: 4 }}>
-        <Typography variant="h4">{t('post.title.create')}</Typography>
+      {!isMobile && <AuthenticatedNavbar />}
+      <Container maxWidth="md" sx={{ mt: 4, pb: isMobile ? 8 : 0 }}>
+        <Typography variant="h4">{t(id ? 'post.title.edit' : 'post.title.create')}</Typography>
 
         <Box display="flex" flexDirection="column">
           <FormControl sx={{ mt: 4 }} variant="outlined">
@@ -98,7 +102,7 @@ function Post() {
             id="multiple-limit-tags"
             options={top100Films}
             getOptionLabel={({ label }) => label}
-            renderInput={(params) => <TextField {...params} label="Categories" placeholder="Manufacturing" />}
+            renderInput={(params) => <TextField {...params} label={t('post.form.label.tags')} placeholder="Manufacturing" />}
             onChange={(_, newInputValue) => {
               const newTags = newInputValue.map((_) => _.label).join(',');
               handleInputChange({ target: { name: 'tags', value: newTags } });
@@ -113,7 +117,7 @@ function Post() {
             <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale="en">
               <DateTimePicker
                 value={programmingDateToPost}
-                label="Basic date time picker"
+                label={t('post.form.label.date')}
                 onChange={(newValue = null) =>
                   handleInputChange({
                     target: { name: 'programmingDateToPost', value: newValue },
@@ -132,6 +136,7 @@ function Post() {
       <div id="back" style={{ position: 'fixed', bottom: '6rem', right: '1rem' }}>
         <PostFabOptions id={Number(id)} valuesForm={valuesForm} handleErrorFormat={handleErrorFormat} />
       </div>
+      {isMobile && <MobileBottomNavigation />}
     </div>
   );
 }

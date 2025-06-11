@@ -8,6 +8,8 @@ import {
   OutlinedInput,
   Pagination,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { ChangeEvent, useCallback, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,6 +20,7 @@ import { usePosts } from '@hooks/queries/posts/usePostsQuery';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
 import AddNewPost from '@components/posts/AddNewPost';
 import usePaginationItemSize from '@hooks/shared/usePaginationItemSize';
+import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
 
 // TODO: Implement filters
 function Posts() {
@@ -27,6 +30,8 @@ function Posts() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [disabledSignUp, setDisabledSignUp] = useState(false);
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { currentPage, handlePageChange } = usePaginationItemSize();
   const { data = {} } = usePosts({ page: currentPage, pageSize: 10 });
   const { pagination } = data;
@@ -34,15 +39,15 @@ function Posts() {
   const uploadFormSignUp = useCallback(() => {}, [valuesForm]);
 
   return (
-    <div>
-      <AuthenticatedNavbar />
+    <>
+      {!isMobile && <AuthenticatedNavbar />}
       <Box my={3} ml={2}>
         <Typography variant="h4">{t('posts.title')}</Typography>
       </Box>
-      <Box display="flex" sx={{ flexDirection: { xs: 'column', sm: 'row' }, gap: '30px', m: 2 }}>
+      <Box display="flex" sx={{ flexDirection: { xs: 'column', sm: 'row' }, gap: '30px', m: 2, pb: isMobile ? 8 : 0 }}>
         <Box display="flex" flexDirection="column" sx={{ flex: 1, gap: '10px' }}>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-search-name-post">{t('posts.form.label.search')}</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-search-name-post">{t('post.form.label.search')}</InputLabel>
 
             <OutlinedInput
               id="outlined-adornment-search-name-post"
@@ -52,7 +57,7 @@ function Posts() {
                   <SearchIcon />
                 </InputAdornment>
               }
-              label={t('posts.form.label.search')}
+              label={t('post.form.label.search')}
               value={titlePost}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
               inputProps={{ name: 'titlePost' }}
@@ -61,7 +66,7 @@ function Posts() {
 
           <Button id="search" variant="contained" size="large" disabled={disabledSignUp} onClick={uploadFormSignUp}>
             {/* {mutation?.isPending && !mutation?.isError ? <CircularProgressBtnLoading /> : t('form.btn_continue')} */}
-            {t('posts.form.btn_search')}
+            {t('post.form.btn.search')}
           </Button>
         </Box>
         <div style={{ flex: 4 }}>
@@ -72,7 +77,8 @@ function Posts() {
         </div>
         <AddNewPost />
       </Box>
-    </div>
+      {isMobile && <MobileBottomNavigation />}
+    </>
   );
 }
 

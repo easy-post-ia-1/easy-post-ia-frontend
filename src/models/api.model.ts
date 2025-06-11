@@ -14,13 +14,15 @@ interface ConfigAxios {
 }
 
 export interface ParamsAxios {
-  data?: Data;
-  configAxios?: ConfigAxios;
-  configService?: ConfigService;
+  configService?: {
+    version: string;
+  };
+  data?: any;
+  params?: Record<string, any>;
 }
 
 export interface ResponseAxiosService {
-  call: Promise<AxiosResponse>;
+  call: Promise<any>;
 }
 
 export interface StatusSuccess {
