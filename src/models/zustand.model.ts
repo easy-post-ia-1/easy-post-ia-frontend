@@ -1,10 +1,10 @@
-import { BasicInfoUser, UserWithAuth } from './user.model';
+import { UserWithAuth } from './user.model';
 
 export interface UserStateZustand {
   user: UserWithAuth;
-  login: (user: BasicInfoUser) => void;
+  login: (user: UserWithAuth) => void;
   logout: () => void;
-  updateUser: (userFields: BasicInfoUser) => void;
+  updateUser: (userFields: Partial<UserWithAuth>) => void;
 }
 
 export interface BottomNavZustand {

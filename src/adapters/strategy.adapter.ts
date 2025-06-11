@@ -17,29 +17,19 @@ const colorCycle = [
   STRATEGY_CARD_COLORS.ORANGE,
 ];
 
-export const fetchedStrategiesAdapter = (response: FetchedStrategy[], page: number, limit: number): { strategies: Strategy[]; total: number; page: number; limit: number } => {
-  // This is a mock adapter. In a real scenario, the API might provide total pages or total items.
-  // For now, let's assume the response itself is just the array of strategies for the current page.
-  // And the total count needs to be handled or fetched separately if the API supports it.
-  // For this example, let's imagine the API returns the strategies directly
-  // and we're adapting them.
-
-  const strategiesWithColor = response.map((strategy, index) => ({
+export const fetchedStrategiesAdapter = (
+  response: FetchedStrategy[],
+  page: number,
+  limit: number
+): { strategies: Strategy[]; total: number; page: number; limit: number } => {
+  const strategies = response.map((strategy) => ({
     ...strategy,
-    // Ensure id is a string as used in StrategyCard key
     id: String(strategy.id),
-    color: colorCycle[index % colorCycle.length],
   }));
 
-  // This is a simplified mock for pagination data.
-  // In a real application, the API would provide this.
-  // For now, we'll just return the adapted strategies and assume a mock total.
-  // The actual total should come from an API response field like `response.meta.total`.
-  const mockTotalStrategies = 20; // Mock total, replace with actual API data
-
   return {
-    strategies: strategiesWithColor,
-    total: mockTotalStrategies, // Replace with actual total from API response
+    strategies,
+    total: response.length,
     page,
     limit,
   };

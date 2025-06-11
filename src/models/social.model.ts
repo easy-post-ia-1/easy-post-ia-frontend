@@ -42,3 +42,22 @@ export interface AdaptedCompanySocialStatus {
   networks: AdaptedSocialNetworkEntry[];
   // Add other top-level properties here if the adapter introduces them
 }
+
+export interface SocialNetworkStatus {
+  has_credentials: boolean;
+}
+
+export interface CompanySocialStatus {
+  social_networks: {
+    [key: string]: SocialNetworkStatus;
+  };
+}
+
+export interface SocialNetwork {
+  name: string;
+  hasCredentials: boolean;
+}
+
+export interface AdaptedCompanySocialStatus {
+  networks: SocialNetwork[];
+}

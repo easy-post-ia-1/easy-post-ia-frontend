@@ -1,0 +1,18 @@
+import { useQuery } from '@tanstack/react-query';
+import { postsService } from '@services/posts.service';
+import { STRATEGY_QUERY_KEYS } from '@utils/constants/strategy.constants';
+
+interface UseCalendarPostsParams {
+  from_date: string;
+  to_date: string;
+  page?: number;
+  perPage?: number;
+}
+
+export const useCalendarPostsQuery = ({ from_date, to_date, page, perPage }: UseCalendarPostsParams) => {
+  return useQuery({
+    queryKey: [STRATEGY_QUERY_KEYS.STRATEGIES, 'calendar', from_date, to_date, page, perPage],
+    queryFn: () => postsService.getCalendarPosts({ from_date, to_date, page, perPage }),
+    enabled: !!from_date && !!to_date, // Only fetch if both dates are provided
+  });
+}; 

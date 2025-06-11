@@ -1,7 +1,7 @@
 {
   "name": "easy-post-ia-frontend",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.10",
   "type": "module",
   "scripts": {
     "staging": "vite --mode staging",
@@ -39,7 +39,7 @@
     "i18next": "^23.16.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "install": "^0.13.0",
-    "luxon": "^3.5.0",
+    "luxon": "^3.6.1",
     "notistack": "^3.0.1",
     "puppeteer": "^23.8.0",
     "puppeteer-core": "^23.8.0",
@@ -63,7 +63,7 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
-    "@types/luxon": "^3.4.2",
+    "@types/luxon": "^3.6.2",
     "@types/react": "^18.3.6",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",

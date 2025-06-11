@@ -2,6 +2,17 @@
 
 This document lists breaking changes for each major release.
 
+## v.0.0.10 (11/06/2025)
+
+- Chore, KAN-63, KAN-67, KAN-69: Update version to 0.0.10 and add update components strategy amd calendar.
+
+- Updated version in `package.json` to 0.0.10.
+- Added new entries in `CHANGELOG.md` for version 0.0.10.
+- Updated `luxon` and `@types/luxon` dependencies in `package-lock.json` and `package.json`.
+- Enhanced English and Spanish translations in `src/_i18n/en.json` and `src/_i18n/es.json` for various user interface components, including success messages, social status, and validation messages.
+- Introduced new components for strategy overview and strategy card, improving the overall user experience.
+- Refactored existing components to utilize the new translations and components where applicable.
+
 ## v.0.0.9 (29/05/2025)
 
 - Feature, KAN-61, KAN-56: Refactor Docker setup and update dependencies

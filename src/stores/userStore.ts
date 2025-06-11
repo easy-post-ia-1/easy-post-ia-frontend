@@ -1,4 +1,4 @@
-import { UserWithAuth } from '@models/user.model.ts';
+import { UserWithAuth } from '@models/user.model';
 import { UserStateZustand } from '@models/zustand.model';
 import { create, StateCreator } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
@@ -7,7 +7,7 @@ const initialState = {
   username: null,
   email: null,
   role: null,
-  isAuthenticated: false,
+  isAuthenticated: false
 };
 
 // username(pin): "test17"
@@ -18,9 +18,9 @@ const initialState = {
 
 const userApi: StateCreator<UserStateZustand> = (set, get) => ({
   user: initialState,
-  login: (user: UserWithAuth) => set({ user: user }),
+  login: (user: UserWithAuth) => set({ user }),
   logout: () => set({ user: initialState }),
-  updateUser: (userFields: UserWithAuth) => set({ user: [get().user, userFields] as UserWithAuth }),
+  updateUser: (userFields: Partial<UserWithAuth>) => set({ user: { ...get().user, ...userFields } })
 });
 
 export const useUserStore = create<UserStateZustand>()(

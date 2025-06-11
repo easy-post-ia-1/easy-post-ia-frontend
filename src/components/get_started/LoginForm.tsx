@@ -56,6 +56,7 @@ function LoginForm() {
         .filter((error): error is { message: string; path: string[] } => error !== undefined) || [];
 
     const loginErrors = groupErrorMessages(formatErrors);
+    console.error('Login errors:', loginErrors);
     setErrorsForm(loginErrors as unknown as LoginFormErrorValues);
 
     setDisabledLogin(false);

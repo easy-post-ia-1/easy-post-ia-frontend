@@ -1,21 +1,18 @@
-import { CompanySocialStatusResponseUpdated, AdaptedCompanySocialStatus, AdaptedSocialNetworkEntry, SocialNetworkProviders } from '@models/social.model'; // Assuming CompanySocialStatusResponseUpdated is also in social.model or adjust import
+import { CompanySocialStatus, AdaptedCompanySocialStatus } from '@models/social.model';
 
-export const createCompanySocialStatusAdapter = (
-  apiResponse: CompanySocialStatusResponseUpdated | null | undefined
-): AdaptedCompanySocialStatus => {
-  if (!apiResponse || !apiResponse.social_networks) {
-    return { networks: [] }; // Return empty array if no data
+export const createCompanySocialStatusAdapter = (data: CompanySocialStatus): AdaptedCompanySocialStatus => {
+  if (!data || !data.social_networks) {
+    return {
+      networks: []
+    };
   }
 
-  const socialNetworksData = apiResponse.social_networks as SocialNetworkProviders;
-  const adaptedNetworks: AdaptedSocialNetworkEntry[] = Object.entries(socialNetworksData)
-    .map(([key, value]) => ({
-      name: key.charAt(0).toUpperCase() + key.slice(1), // Capitalize the network name
-      hasCredentials: value.has_credentials,
-      // key: key, // Optionally include the original key
-    }));
+  const networks = Object.entries(data.social_networks).map(([name, status]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1), // Capitalize first letter
+    hasCredentials: status.has_credentials
+  }));
 
   return {
-    networks: adaptedNetworks,
+    networks
   };
 };

@@ -1,99 +1,113 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography, CircularProgress, Alert } from '@mui/material';
-
-// Define expected response type for clarity
-interface CalendarDataResponse {
-  isEmpty: boolean;
-  data?: any[]; // Replace 'any' with actual event data type if known
-}
-
-// Default (mock) calendar data fetching
-const defaultFetchCalendarDataAPI = (): Promise<CalendarDataResponse> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Simulate success or error randomly
-      const randomValue = Math.random();
-      if (randomValue > 0.9) {
-        reject(new Error("Failed to load calendar data"));
-      } else {
-        // Simulate empty or with data
-        const isEmpty = randomValue > 0.7; // Make it more predictable for default
-        resolve({ isEmpty: isEmpty, data: isEmpty ? [] : [{date: '2024-07-15', events: ['Event 1']}] });
-      }
-    }, 50); // Reduced timeout for tests
-  });
-};
+import { Box, Typography, CircularProgress, Alert, Skeleton, List, ListItem, ListItemText, Paper, CardActionArea } from '@mui/material';
+import { useCalendarPostsQuery } from '@hooks/queries/calendar/useCalendarPostsQuery';
+import { Post } from '@models/post.model';
+import PostDetailModal from '@components/post/PostDetailModal';
+import { DateTime } from 'luxon';
+import DateRangeValue from '@components/date_range/DateRangeCalendarValue';
 
 interface CalendarViewProps {
-  fetchCalendarDataApiOverride?: () => Promise<CalendarDataResponse>;
+  // No longer need fetchCalendarDataApiOverride as we're using a hook
 }
 
-const CalendarView: React.FC<CalendarViewProps> = ({ fetchCalendarDataApiOverride }) => {
+const CalendarView: React.FC<CalendarViewProps> = () => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [dateRange, setDateRange] = useState({
+    fromSchedule: DateTime.now().startOf('month').toISO(),
+    toSchedule: DateTime.now().endOf('month').toISO()
+  });
 
-  useEffect(() => {
-    const fetchApi = fetchCalendarDataApiOverride || defaultFetchCalendarDataAPI;
-    const fetchCalendarData = async () => {
-      setLoading(true);
-      setError(null);
-      setIsEmpty(false);
-      try {
-        const response = await fetchApi();
-        setIsEmpty(response.isEmpty);
-        // In a real scenario, you would set calendar events here
-      } catch (err) {
-        setError(t('calendarView.errors.fetch'));
-        console.error("Failed to fetch calendar data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data, isLoading, isError, error } = useCalendarPostsQuery({
+    from_date: dateRange.fromSchedule,
+    to_date: dateRange.toSchedule,
+  });
 
-    fetchCalendarData();
-  }, [t]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-  if (loading) {
+  const handleOpenModal = (post: Post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
+
+  const handleDateRangeChange = (event: { target: { name: string; value: string | null } }) => {
+    setDateRange(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value
+    }));
+  };
+
+  if (isLoading) {
     return (
       <Box>
         <Typography variant="h5" gutterBottom>{t('calendarView.title')}</Typography>
-        {/* Placeholder for loading skeleton */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '1px dashed grey' }}>
-          <CircularProgress />
-          <Typography sx={{ml: 2}}>{t('calendarView.loading')}</Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 2, border: '1px dashed grey', borderRadius: 1 }}>
+          <Skeleton variant="text" width="60%" height={30} />
+          <Skeleton variant="rectangular" height={150} />
+          <Skeleton variant="text" width="80%" height={20} />
+          <Skeleton variant="rectangular" height={100} />
         </Box>
       </Box>
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <Box>
         <Typography variant="h5" gutterBottom>{t('calendarView.title')}</Typography>
-        <Alert severity="error">{error}</Alert>
+        <Alert severity="error">{t('calendarView.errors.fetch')}: {error?.message}</Alert>
       </Box>
     );
   }
 
-  if (isEmpty) {
-    return (
-      <Box>
-        <Typography variant="h5" gutterBottom>{t('calendarView.title')}</Typography>
-        <Typography>{t('calendarView.emptyState')}</Typography>
-      </Box>
-    );
-  }
+  const posts = data?.posts || [];
+  const isEmpty = posts.length === 0;
 
   return (
     <Box>
       <Typography variant="h5" gutterBottom>{t('calendarView.title')}</Typography>
-      {/* Placeholder for actual Calendar component */}
-      <Box sx={{ height: '300px', border: '1px solid lightgray', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="h6">[Calendar Placeholder]</Typography>
-      </Box>
+      
+      <DateRangeValue 
+        fromSchedule={dateRange.fromSchedule}
+        toSchedule={dateRange.toSchedule}
+        handleInputChange={handleDateRangeChange}
+      />
+
+      {
+        isEmpty ? (
+          <Typography>{t('calendarView.emptyState')}</Typography>
+        ) : (
+          <Box sx={{ height: '300px', border: '1px solid lightgray', borderRadius: 1, p: 2, overflowY: 'auto' }}>
+            <Typography variant="h6" gutterBottom>
+              {t('calendarView.scheduledPosts', {
+                from: DateTime.fromISO(dateRange.fromSchedule).toLocaleString(DateTime.DATE_FULL),
+                to: DateTime.fromISO(dateRange.toSchedule).toLocaleString(DateTime.DATE_FULL)
+              })}
+            </Typography>
+            <List>
+              {posts.map((post) => (
+                <Paper key={post.id} elevation={1} sx={{ mb: 1 }}>
+                  <CardActionArea onClick={() => handleOpenModal(post)}>
+                    <ListItem>
+                      <ListItemText
+                        primary={t('calendar.event.post_title', { title: post.title })}
+                        secondary={DateTime.fromISO(post.programming_date_to_post).toLocaleString(DateTime.DATETIME_SHORT)}
+                      />
+                    </ListItem>
+                  </CardActionArea>
+                </Paper>
+              ))}
+            </List>
+          </Box>
+        )
+      }
+      <PostDetailModal isOpen={isModalOpen} onClose={handleCloseModal} post={selectedPost} />
     </Box>
   );
 };
