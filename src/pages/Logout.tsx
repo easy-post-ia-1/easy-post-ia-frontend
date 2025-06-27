@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 
 const Logout = () => {
   const logout = useUserStore((state) => state.logout);
@@ -22,11 +22,11 @@ const Logout = () => {
 
   return (
     <>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Box sx={{ pb: isMobile ? 8 : 0 }}>
         {/* Logout logic will redirect, so nothing visible here */}
       </Box>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
 };

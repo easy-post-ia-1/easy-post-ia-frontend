@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+Write concise, technical TypeScript. Follow Standard.js rules.
+
+Use functional, declarative patterns; avoid classes.
+
+Favor loops and small helper modules over duplicate code.
+
+Use descriptive names with auxiliary verbs (e.g. isLoading, hasError).
+
+When a component is big and it has a lot of functionalities refactorize the possible helepers and organize in the folder /utils in the different folders located in there place.
+
+Each time you make some connection with endpoint use folder /services, hooks queries and mutations to do the diagram complete.
+
+When you want to create the 
+

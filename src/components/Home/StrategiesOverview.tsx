@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, Skeleton, Alert, Pagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useStrategies } from '../../hooks/queries/strategy/useStrategies';
-import { StrategyCard } from '../StrategyCard';
+import { useStrategies } from '@hooks/queries/strategy/useStrategies';
+import { StrategyCard } from '@components/strategy/StrategyCard';
 import { useState } from 'react';
 
 export const StrategiesOverview = () => {

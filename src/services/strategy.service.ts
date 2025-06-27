@@ -1,7 +1,7 @@
 import { apiClient } from '../utils/axios-utilities';
 import { StrategyEndpoint, StrategiesResponse, StrategyResponse } from '../models/strategy.model';
+import { STRATEGY_SERVICE } from '@utils/constants/api.constants';
 
-const STRATEGY_SERVICE = 'strategies';
 const API_VERSION = 'v1';
 
 interface GetStrategiesParams {
@@ -26,7 +26,7 @@ export const strategyService = {
   },
 
   createStrategy: async (data: StrategyEndpoint): Promise<StrategiesResponse> => {
-    const response = await apiClient().post(`/${API_VERSION}/${STRATEGY_SERVICE}`, data);
+    const response = await apiClient().post(`/${API_VERSION}/${STRATEGY_SERVICE}/create`, data);
     return response.data;
   }
 };

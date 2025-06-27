@@ -1,0 +1,39 @@
+---
+description: 
+globs: false
+alwaysApply: false
+---
+
+Directories: lowercase with dashes (e.g. components/auth-wizard) with your respective extension
+
+Folders:
+
+__test__ -> Unit testing and test components.
+
+_i18n -> Translations to english and spanish.
+
+_18n-zod -> Translations to validations in zod.
+
+adapters -> Anticorruption layer to the endpoints.
+
+assets -> Images and logos of the application.
+components and folder to each route with import component.
+
+hooks -> Contain helper function to components, options, 
+mutations and queries to the endpoints.
+
+models -> Interfaces of the different components.
+
+pages -> Components specifically to the route components.
+
+router -> Definition of the private, public and protected 
+components and folder to each route with import component.
+
+services -> Helpers to identify the specific service to determinied endpoints.
+
+stores -> Save information zustand hooks.
+
+utils -> Contain helpers axios, enums, errors, validations, constants.
+
+Prefer named exports for components
+Types/Interfaces in PascalCase (e.g. User, ButtonProps)

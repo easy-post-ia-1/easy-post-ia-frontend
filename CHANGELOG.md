@@ -2,6 +2,18 @@
 
 This document lists breaking changes for each major release.
 
+## v.0.0.11 (26/06/2025)
+
+- Feature, KAN-48, KAN-71, KAN-75, KAN-76: Add react tour and adjust roles.
+
+- Updated version in `package.json` and `package-lock.json` to 0.0.11.
+- Added new components: `HomeTour`, `StrategiesOverview`, and `StrategyCard`.
+- Enhanced English and Spanish translations in `src/_i18n/en.json` and `src/_i18n/es.json` for various UI elements.
+- Refactored existing components to utilize new translations and components.
+- Introduced new rules for accessibility, code style, error handling, and performance optimization in `.cursor/rules/`.
+- Added new images for login and signup pages.
+- Updated unit tests for components to reflect changes in structure and translations.
+
 ## v.0.0.10 (11/06/2025)
 
 - Chore, KAN-63, KAN-67, KAN-69: Update version to 0.0.10 and add update components strategy amd calendar.

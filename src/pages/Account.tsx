@@ -16,7 +16,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { useCompanySocialStatus } from '@hooks/queries/user/useCompanySocialStatusQuery';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 import { useTranslation } from 'react-i18next';
 
 function Account() {
@@ -34,7 +34,7 @@ function Account() {
 
   return (
     <>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Container maxWidth="sm" sx={{ mt: 4, pb: isMobile ? 8 : 0 }}>
         {/* Existing User Profile Box */}
         <Box display="flex" flexDirection="column" alignItems="center">
@@ -68,7 +68,7 @@ function Account() {
                 <Paper elevation={1} sx={{ p: 2, mt: 2 }}>
                   <Grid container spacing={1}>
                     {socialStatusData.networks.map((network) => (
-                      <Grid item xs={12} key={network.name}> {/* Assuming network.name is unique */}
+                      <Grid item xs={12} key={network.name}>
                         <FormControlLabel
                           control={<Checkbox checked={network.hasCredentials} disabled />}
                           label={network.name}
@@ -88,7 +88,7 @@ function Account() {
           )}
         </Box>
       </Container>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
 }

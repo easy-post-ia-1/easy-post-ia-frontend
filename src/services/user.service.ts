@@ -1,6 +1,6 @@
 import { ParamsAxios, ResponseAxiosService } from '@models/index';
 import { apiClient } from '@utils/axios-utilities';
-import { USER_SERVICE } from '@utils/constants';
+import { USER_SERVICE } from '@utils/constants/api.constants';
 
 const getHealthCheck = async ({ configService = { version: 'v1' } }: ParamsAxios = {}) => {
   try {
@@ -41,6 +41,12 @@ const deleteLogout = ({ configService = { version: 'v1' } }: ParamsAxios): Respo
   };
 };
 
+const updateUser = ({ configService = { version: 'v1' }, data = {} }: ParamsAxios): ResponseAxiosService => {
+  return {
+    call: apiClient().patch(`/${configService?.version}/${USER_SERVICE}/me`, { user: data }),
+  };
+};
+
 export const userService = {
   getHealthCheck,
   postLogin,
@@ -48,4 +54,5 @@ export const userService = {
   deleteLogout,
   postSignUp,
   getCompanySocialStatus,
+  updateUser,
 };

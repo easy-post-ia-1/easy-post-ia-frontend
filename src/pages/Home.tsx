@@ -1,44 +1,54 @@
-import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import CreateStrategy from '@components/strategy/CreateStrategy';
-import { Container, Grid, Paper, Box, useMediaQuery, useTheme } from '@mui/material';
-import StrategiesOverview from '../components/Home/StrategiesOverview';
-import CalendarView from '../components/Home/CalendarView';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import HomeTour from '@components/home/HomeTour';
+import { TourProvider } from '@reactour/tour';
+import { useMemo } from 'react';
+import { useGetAccount } from '@hooks/queries/user/useProfileQuery';
+import { userUpdateProfileMutation } from '@hooks/mutations/user/userUpdateProfileMutation';
 
-const Home = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+const TourController = () => {
+  const { data: userProfile } = useGetAccount();
+  const updateProfileMutation = userUpdateProfileMutation();
+
+  const steps = useMemo(() => [
+    {
+      selector: '[data-tour="create-strategy"]',
+      content: 'Here you can create a new strategy to manage your posts.',
+    },
+    {
+      selector: '[data-tour="strategies-overview"]',
+      content: 'This section provides an overview of your existing strategies.',
+    },
+    {
+      selector: '[data-tour="calendar-view"]',
+      content: 'View your scheduled posts and strategies on a calendar.',
+    },
+  ], []);
+
+  const handleTourClose = async () => {
+    if (!userProfile?.user?.did_tutorial) {
+      console.log('Tour closed, updating tutorial status');
+      try {
+        await updateProfileMutation.mutateAsync({ did_tutorial: true });
+        console.log('Tutorial status updated successfully');
+      } catch (error) {
+        console.error('Failed to update tutorial status:', error);
+      }
+    }
+  };
 
   return (
-    <>
-      {!isMobile && <AuthenticatedNavbar />}
-      <Container maxWidth="lg" sx={{ my: 6, pb: isMobile ? 8 : 0 }}>
-        <Grid container spacing={3}>
-          {/* Create Strategy Section */}
-          <Grid item xs={12}>
-            <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
-              <CreateStrategy />
-            </Paper>
-          </Grid>
-
-          {/* Strategies Overview Section */}
-          <Grid item xs={12} md={6}>
-            <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-              <StrategiesOverview />
-            </Paper>
-          </Grid>
-
-          {/* Calendar View Section */}
-          <Grid item xs={12} md={6}>
-            <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-              <CalendarView />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-      {isMobile && <MobileBottomNavigation />}
-    </>
+    <TourProvider
+      steps={steps}
+      disableInteraction={true}
+      onClickClose={(clickProps) => { clickProps.setIsOpen(false); handleTourClose()}}
+      onClickMask={(clickProps) => { clickProps.setIsOpen(false); handleTourClose()}}
+    >
+      <HomeTour />
+    </TourProvider>
   );
+};
+
+const Home = () => {
+  return <TourController />;
 };
 
 export default Home;

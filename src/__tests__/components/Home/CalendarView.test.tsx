@@ -3,21 +3,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../../_i18n'; // Adjusted path
-import CalendarView from '@components/Home/CalendarView'; // Adjusted path
+import CalendarView from '@components/home/CalendarView'; // Adjusted path
 
 // Mock the internal fetchCalendarDataAPI
 // Similar to StrategiesOverview, if this is an internal function, it's tricky.
 // We'll assume it can be mocked or the component refactored.
 // For this example, we'll mock the states directly based on how the component behaves.
-
-// Helper function to render with I18nextProvider
-const renderWithProviders = (ui: React.ReactElement) => {
-  return render(
-    <I18nextProvider i18n={i18n}>
-      {ui}
-    </I18nextProvider>
-  );
-};
 
 // Mocking the fetchCalendarDataAPI that is defined inside CalendarView.tsx
 // This requires a more advanced mocking technique (e.g., jest.spyOn if it were a module export)

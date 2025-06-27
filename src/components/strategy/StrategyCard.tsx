@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, Chip, Box, Link } from '@mui/material';
 import { DateTime } from 'luxon';
-import { Strategy, STRATEGY_STATUS } from '../models/strategy.model';
+import { Strategy, STRATEGY_STATUS } from '@models/strategy.model';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,6 +48,7 @@ export const StrategyCard = ({ strategy }: StrategyCardProps) => {
   };
 
   const handleStrategyClick = () => {
+    window.scrollTo(0, 0);
     navigate(`/strategies/${strategy.id}`);
   };
 
@@ -101,10 +102,18 @@ export const StrategyCard = ({ strategy }: StrategyCardProps) => {
           </Typography>
         </Box>
 
-        <Box sx={{ flexGrow: 1 }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="body2" color="text.secondary">
             {t('strategiesOverview.postCount', { count: strategy.posts_count || 0 })}
           </Typography>
+          <Link
+            component="button"
+            variant="body2"
+            onClick={handleStrategyClick}
+            sx={{ textDecoration: 'none' }}
+          >
+            {t('general.btn.edit')}
+          </Link>
         </Box>
       </CardContent>
     </Card>

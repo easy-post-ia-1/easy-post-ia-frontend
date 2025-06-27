@@ -6,7 +6,7 @@ export const useGetAccount = () => {
   const enqueueAlertNotification = useHandleAlertNotification();
 
   return useQuery({
-    queryKey: ['user'], // Unique key for this query
+    queryKey: ['user'],
     queryFn: async () => {
       try {
         const { data } = await userService.getUser().call;
@@ -16,6 +16,6 @@ export const useGetAccount = () => {
         throw error;
       }
     },
-    staleTime: 0,
+    staleTime: 30000, // Cache for 30 seconds to prevent unnecessary refetches
   });
 };

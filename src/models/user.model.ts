@@ -1,31 +1,38 @@
-import { z } from '@i18n-zod/i18n-zod-setup.ts';
 import { signupSchema } from 'src/utils/validations/get_started/sign-up-form.validation';
-import { AdaptedCompanySocialStatus } from './social.model';
-
-export type UserSignUp = z.infer<typeof signupSchema>;
-
-export interface BasicInfoUser {
-  email?: string | null;
-  username?: string | null;
-  role?: string | null;
-}
-
-interface AuthInfo {
-  isAuthenticated?: boolean;
-}
-
-export interface LoginInfo {
-  username: string;
-  password: string;
-}
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
   email: string;
-  role: string;
+  first_name?: string;
+  last_name?: string;
+  did_tutorial?: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface UserWithAuth extends User {
+  role: string;
   isAuthenticated: boolean;
+}
+
+export interface UserFormValues {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export type UserFormErrors = {
+  [K in keyof UserFormValues]?: string;
+};
+
+export const userFormValidation = signupSchema;
+
+export interface UserSignUp {
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  confirmPasswd?: string;
 }

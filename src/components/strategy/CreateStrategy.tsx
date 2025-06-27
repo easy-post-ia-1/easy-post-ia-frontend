@@ -4,15 +4,13 @@ import { createStrategyMutation } from '@hooks/mutations/strategy/useCreateStrat
 import useForm from '@hooks/shared/useForm';
 import { Error } from '@models/error.model';
 import { StrategyValues } from '@models/strategy.model';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Box, Typography, Paper, Alert } from '@mui/material';
 import { initialValuesStrategy } from '@utils/constants/marketingStrategy.constants';
 import { groupErrorMessages } from '@utils/errors';
 import { marketingStrategy } from '@utils/validations/strategy';
 import { DateTime } from 'luxon';
 import { ChangeEvent, useState } from 'react';
 
-// TODO: Slot input
-// TODO: Complete this component
 function CreateStrategy() {
   const { valuesForm, handleInputChange, resetForm } = useForm(initialValuesStrategy);
   const {
@@ -27,9 +25,20 @@ function CreateStrategy() {
   const handleErrorFormat = (errorFormat: StrategyValues) => setErrorsForm(errorFormat);
 
   const handlePublish = () => {
-    const { success = false, error = null } = marketingStrategy.safeParse(valuesForm);
+    const dataToValidate = {
+      ...valuesForm,
+      fromSchedule:
+        valuesForm.fromSchedule && typeof (valuesForm.fromSchedule as any).toISO === 'function'
+          ? (valuesForm.fromSchedule as any).toISO()
+          : valuesForm.fromSchedule,
+      toSchedule:
+        valuesForm.toSchedule && typeof (valuesForm.toSchedule as any).toISO === 'function'
+          ? (valuesForm.toSchedule as any).toISO()
+          : valuesForm.toSchedule,
+    };
 
-    console.log(`success: ${error} - ${success} - ${typeof valuesForm?.toSchedule} - ${valuesForm?.toSchedule}`);
+    const { success = false, error = null } = marketingStrategy.safeParse(dataToValidate);
+
     if (!success) {
       const formatErrors =
         error?.issues
@@ -40,30 +49,89 @@ function CreateStrategy() {
       return;
     }
 
-    console.log('Values form:', valuesForm);
-    mutation.mutate(uploadStrategyAdapter(valuesForm));
+    mutation.mutate(uploadStrategyAdapter(dataToValidate));
     resetForm(initialValuesStrategy);
+    setErrorsForm(initialValuesStrategy);
   };
 
-  return (
-    <div>
-      <TextField
-        id="outlined"
-        onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-        value={description}
-        inputProps={{ name: 'description' }}
-        error={Boolean(errorsForm.description)}
-        helperText={errorsForm.description}
-        label="Descripcion"
-        variant="outlined"
-        fullWidth
-      />
-      <DateRangeValue fromSchedule={fromSchedule} toSchedule={toSchedule} handleInputChange={handleInputChange} />
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    handlePublish();
+  };
 
-      <Button variant="contained" onClick={() => handlePublish()}>
-        Publish
-      </Button>
-    </div>
+  const isFormValid = description.trim().length > 0;
+  const isLoading = mutation.isPending;
+
+  return (
+    <Paper elevation={2} sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
+      <Typography variant="h5" component="h2" gutterBottom>
+        Create New Strategy
+      </Typography>
+      
+      {mutation.isError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          Failed to create strategy. Please try again.
+        </Alert>
+      )}
+
+      <Box component="form" onSubmit={handleSubmit} noValidate>
+        <TextField
+          id="strategy-description"
+          name="description"
+          label="Strategy Description"
+          value={description}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+          error={Boolean(errorsForm.description)}
+          helperText={errorsForm.description || "Enter a description for your marketing strategy"}
+          variant="outlined"
+          fullWidth
+          required
+          multiline
+          rows={3}
+          sx={{ mb: 3 }}
+          aria-describedby={errorsForm.description ? "description-error" : "description-help"}
+        />
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="subtitle1" gutterBottom>
+            Strategy Timeline
+          </Typography>
+          <DateRangeValue 
+            fromSchedule={fromSchedule} 
+            toSchedule={toSchedule} 
+            handleInputChange={handleInputChange} 
+          />
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+          <Button
+            type="button"
+            variant="outlined"
+            onClick={() => {
+              resetForm(initialValuesStrategy);
+              setErrorsForm(initialValuesStrategy);
+            }}
+            disabled={isLoading}
+          >
+            Reset
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!isFormValid || isLoading}
+            aria-describedby={!isFormValid ? "submit-error" : undefined}
+          >
+            {isLoading ? 'Creating...' : 'Create Strategy'}
+          </Button>
+        </Box>
+
+        {!isFormValid && (
+          <Typography id="submit-error" variant="caption" color="error" sx={{ mt: 1, display: 'block' }}>
+            Please fill in all required fields to create a strategy.
+          </Typography>
+        )}
+      </Box>
+    </Paper>
   );
 }
 

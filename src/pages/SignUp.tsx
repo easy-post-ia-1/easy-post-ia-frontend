@@ -1,18 +1,16 @@
 import Logo from '@components/navbar/Logo';
 import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
-import thankLettering from '@assets/images/signup/lettering_thanks.png';
-import groupWork from '@assets/images/signup/groupwork.png';
 import SignUpForm from '@components/get_started/SignUpForm';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 
-function SignUp() {
+const SignUp: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Box display="flex" sx={{ pb: isMobile ? 8 : 0 }}>
         <div style={{ flex: 3 }}>
           <Container maxWidth="sm">
@@ -36,17 +34,17 @@ function SignUp() {
             }}
           >
             <div style={{ maxWidth: '300px', width: '100%' }}>
-              <img src={thankLettering} alt="Thanks lettering" style={{ maxWidth: '100%', height: 'auto' }} />
+              <img src="/images/signup/lettering_thanks.png" alt="Thanks lettering" style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
             </div>
             <div style={{ maxWidth: '500px', width: '100%' }}>
-              <img src={groupWork} alt="Group work in grayscale" style={{ maxWidth: '100%', height: 'auto' }} />
+              <img src="/images/signup/groupwork.png" alt="Group work in grayscale" style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
             </div>
           </div>
         </Box>
       </Box>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
-}
+};
 
 export default SignUp;
