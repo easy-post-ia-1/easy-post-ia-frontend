@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import { useStrategyQuery } from '@hooks/queries/strategy/useStrategyQuery';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 import { useNavigate } from 'react-router-dom';
 
 export const StrategyDetail = () => {
@@ -18,11 +18,11 @@ export const StrategyDetail = () => {
   if (isLoading) {
     return (
       <>
-        {!isMobile && <AuthenticatedNavbar />}
+        <AuthenticatedNavbar />
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
           <CircularProgress />
         </Box>
-        {isMobile && <MobileBottomNavigation />}
+        <BottomNavigationMobile />
       </>
     );
   }
@@ -30,11 +30,11 @@ export const StrategyDetail = () => {
   if (error || !data?.strategy) {
     return (
       <>
-        {!isMobile && <AuthenticatedNavbar />}
+        <AuthenticatedNavbar />
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
           <Typography color="error">{error instanceof Error ? error.message : 'Strategy not found'}</Typography>
         </Box>
-        {isMobile && <MobileBottomNavigation />}
+        <BottomNavigationMobile />
       </>
     );
   }
@@ -68,7 +68,7 @@ export const StrategyDetail = () => {
 
   return (
     <>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Box p={3} pb={isMobile ? 8 : 3}>
         <Paper elevation={3} sx={{ p: 3 }}>
           <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
@@ -138,7 +138,7 @@ export const StrategyDetail = () => {
           </Box>
         </Paper>
       </Box>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
 };

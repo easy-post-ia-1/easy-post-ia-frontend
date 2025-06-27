@@ -1,40 +1,72 @@
-import useHandleAlertNotification from '@hooks/shared/useAlertNotification';
+import { useQuery } from '@tanstack/react-query';
 import { postsService } from '@services/posts.service';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { DateTime } from 'luxon';
+import useAlertNotification from '../../../hooks/shared/useAlertNotification';
+import { Post } from '@models/post.model';
 
-export const usePosts = ({ page = 1, pageSize = 10 } = {}) => {
-  const enqueueAlertNotification = useHandleAlertNotification();
+interface PostsResponse {
+  status: {
+    code: number;
+    message: string;
+  };
+  posts: Post[];
+  pagination: {
+    page: number;
+    pages: number;
+    count: number;
+  };
+}
 
-  return useQuery({
-    queryKey: ['posts', page, pageSize],
+interface PostsFilters {
+  from_date?: string;
+  to_date?: string;
+  page?: number;
+  page_size?: number;
+  title?: string;
+  description?: string;
+  tags?: string;
+  status?: string;
+  is_published?: boolean;
+}
+
+const removeUndefinedValues = (obj: Record<string, any>) => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => value !== undefined && value !== '')
+  );
+};
+
+export const usePosts = (filters?: PostsFilters) => {
+  const enqueueAlertNotification = useAlertNotification();
+
+  return useQuery<PostsResponse>({
+    queryKey: ['posts', filters],
     queryFn: async () => {
       try {
-        const { data } = await postsService.index({ data: { page, page_size: pageSize } }).call;
-        return data;
+        const cleanFilters = filters ? removeUndefinedValues(filters) : {};
+        const response = await postsService.index(cleanFilters);
+        return response;
       } catch (error) {
         enqueueAlertNotification('Failed to fetch posts', 'error');
         throw error;
       }
     },
-    placeholderData: keepPreviousData,
   });
 };
 
-export const usePostShow = (id: number | undefined) => {
-  const enqueueAlertNotification = useHandleAlertNotification();
+export const usePostShow = (id: number) => {
+  const enqueueAlertNotification = useAlertNotification();
 
-  return useQuery({
-    queryKey: ['post', id], // Unique key for this query
+  return useQuery<PostsResponse>({
+    queryKey: ['post', id],
     queryFn: async () => {
       try {
-        const { data } = await postsService.show({ data: { id } }).call;
-        return data;
+        const response = await postsService.show(id);
+        return response;
       } catch (error) {
         enqueueAlertNotification('Failed to fetch post', 'error');
         throw error;
       }
     },
-    staleTime: 0,
-    enabled: id !== -1,
+    enabled: !!id,
   });
 };

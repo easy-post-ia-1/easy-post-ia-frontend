@@ -19,6 +19,7 @@ import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { initialValuesPost, top100Films } from '@utils/constants';
+import { PostFormValues } from '@models/post.model';
 
 import placeholderUploadPost from '@assets/images/posts/placeholder_upload_post.jpg';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +29,7 @@ import { usePostShow } from '@hooks/queries/posts/usePostsQuery';
 import { useParams } from 'react-router-dom';
 import { createPostAdapter } from '@adapters/post.adapter';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 
 function Post() {
   const { id } = useParams();
@@ -41,14 +42,16 @@ function Post() {
   const { data } = usePostShow(Number(id));
 
   useEffect(() => {
-    if (data) resetForm(createPostAdapter(data?.post));
+    if (data?.posts?.[0]) {
+      resetForm(createPostAdapter(data.posts[0]));
+    }
   }, [data]);
 
   const handleErrorFormat = (errorFormat: PostFormValues) => setErrorsForm(errorFormat);
 
   return (
     <div style={{ position: 'relative' }}>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Container maxWidth="md" sx={{ mt: 4, pb: isMobile ? 8 : 0 }}>
         <Typography variant="h4">{t(id ? 'post.title.edit' : 'post.title.create')}</Typography>
 
@@ -136,7 +139,7 @@ function Post() {
       <div id="back" style={{ position: 'fixed', bottom: '6rem', right: '1rem' }}>
         <PostFabOptions id={Number(id)} valuesForm={valuesForm} handleErrorFormat={handleErrorFormat} />
       </div>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </div>
   );
 }

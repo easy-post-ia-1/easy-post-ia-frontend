@@ -1,6 +1,6 @@
 import { ParamsAxios, ResponseAxiosService } from '@models/index';
 import { apiClient } from '@utils/axios-utilities';
-import { COMPANY_SERVICE } from '@utils/constants';
+import { COMPANY_SERVICE } from '@utils/constants/api.constants';
 
 const getCompanySocialStatus = ({ configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
   return {

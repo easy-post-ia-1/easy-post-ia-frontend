@@ -13,18 +13,16 @@ interface PostDetailModalProps {
 }
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: { xs: '90%', md: '60%', lg: '40%' },
+  width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  maxHeight: '90vh',
-  overflowY: 'auto',
-};
+} as const;
 
 const POST_STATUS_ORDERED = [
   POST_STATUS.PENDING,

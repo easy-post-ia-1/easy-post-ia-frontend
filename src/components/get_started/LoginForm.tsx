@@ -18,11 +18,9 @@ import { groupErrorMessages } from '@utils/errors';
 import CircularProgressBtnLoading from '@components/loading/CircularProgressBtnLoading';
 import { Error, LoginFormErrorValues } from '@models/error.model';
 import ErrorFormHelperText from './ErrorFormHelperText';
-import { initialValuesLogin } from '@utils/constants';
+import { initialValuesLogin } from '@utils/constants/user.constants';
 import useLoginGoogle from '@hooks/shared/useLoginGoogle';
 import useLoginFacebook from '@hooks/shared/useLoginFacebook';
-import FacebookLoginButton from '@kazion/react-facebook-login';
-import { configEnv } from '@utils/environment/config_variables';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -143,19 +141,6 @@ function LoginForm() {
       >
         {t('form.btn_connect', { socialNetwork: 'Facebook' })}
       </Button>
-
-      <FacebookLoginButton
-        appId={configEnv.VITE_FACEBOOK_APP_ID_WEB}
-        onSuccess={(response) => {
-          console.log('Login Success!', response);
-        }}
-        onFail={(error) => {
-          console.log('Login Failed!', error);
-        }}
-        onProfileSuccess={(response) => {
-          console.log('Get Profile Success!', response);
-        }}
-      />
 
       <Box mt={2} />
       <Button

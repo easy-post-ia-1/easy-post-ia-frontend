@@ -1,17 +1,25 @@
-import { ParamsAxios, ResponseAxiosService } from '@models/api.model';
-import { apiClient } from '@utils/axios-utilities';
 import { Post } from '@models/post.model';
+import { apiClient } from '@utils/axios-utilities';
 
 const POST_SERVICE = 'posts';
 
-interface GetCalendarPostsParams {
-  from_date: string; // ISO 8601 date string
-  to_date: string;   // ISO 8601 date string
+interface GetPostsParams {
+  from_date?: string; // ISO 8601 date string
+  to_date?: string;   // ISO 8601 date string
   page?: number;
-  perPage?: number;
+  page_size?: number;
+  title?: string;     // Search by title
+  description?: string; // Search by description
+  tags?: string;      // Search by tags
+  status?: string;    // Filter by status
+  is_published?: boolean; // Filter by published status
 }
 
 interface PostsResponse {
+  status: {
+    code: number;
+    message: string;
+  };
   posts: Post[];
   pagination: {
     page: number;
@@ -20,44 +28,39 @@ interface PostsResponse {
   };
 }
 
-const getIndex = ({ data, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
-  const queryString = new URLSearchParams(data as Record<string, string>).toString();
-  return {
-    call: apiClient().get(`/${configService?.version}/${POST_SERVICE}?${queryString}`),
-  };
+const getIndex = async (params: GetPostsParams = {}): Promise<PostsResponse> => {
+  const queryString = new URLSearchParams(params as Record<string, string>).toString();
+  const response = await apiClient().get(`/v1/${POST_SERVICE}?${queryString}`);
+  return response.data;
 };
 
-const getShow = ({ data = {}, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
-  return {
-    call: apiClient().get(`/${configService?.version}/${POST_SERVICE}/${data?.id}`),
-  };
+const getShow = async (id: number): Promise<PostsResponse> => {
+  const response = await apiClient().get(`/v1/${POST_SERVICE}/${id}`);
+  return response.data;
 };
 
-const createPost = ({ data, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
-  return {
-    call: apiClient().post(`/${configService?.version}/${POST_SERVICE}`, data),
-  };
+const createPost = async (data: Partial<Post>): Promise<PostsResponse> => {
+  const response = await apiClient().post(`/v1/${POST_SERVICE}`, data);
+  return response.data;
 };
 
-const updatePost = ({ data, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
-  return {
-    call: apiClient().put(`/${configService?.version}/${POST_SERVICE}/${data?.id}`, data),
-  };
+const updatePost = async (id: number, data: Partial<Post>): Promise<PostsResponse> => {
+  const response = await apiClient().put(`/v1/${POST_SERVICE}/${id}`, data);
+  return response.data;
 };
 
-const destroyPost = ({ data, configService = { version: 'v1' } }: ParamsAxios = {}): ResponseAxiosService => {
-  return {
-    call: apiClient().delete(`/${configService?.version}/${POST_SERVICE}/${data?.id}`),
-  };
+const destroyPost = async (id: number): Promise<PostsResponse> => {
+  const response = await apiClient().delete(`/v1/${POST_SERVICE}/${id}`);
+  return response.data;
 };
 
-const getCalendarPosts = async ({ from_date, to_date, page = 1, perPage = 10 }: GetCalendarPostsParams): Promise<PostsResponse> => {
-  const response = await apiClient().get(`/v1/${POST_SERVICE}` ,{
+const getCalendarPosts = async ({ from_date, to_date, page = 1, page_size = 10 }: GetPostsParams): Promise<PostsResponse> => {
+  const response = await apiClient().get(`/v1/${POST_SERVICE}`, {
     params: {
       from_date,
       to_date,
       page,
-      per_page: perPage
+      page_size
     }
   });
   return response.data;

@@ -35,7 +35,7 @@ function PostCard({ id = -1, title = '', description = '', imageUrl = '' }: Post
         </CardActionArea>
         <CardActions>
           <Button size="small" color="primary" onClick={() => navigate(`/posts/${id}`)}>
-            {t('general.btn_edit')}
+            {t('general.btn.edit')}
           </Button>
         </CardActions>
       </Card>

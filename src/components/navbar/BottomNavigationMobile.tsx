@@ -2,6 +2,7 @@ import { useBottomNavigationOptions } from '@hooks/options';
 import { BottomNavigationAction, BottomNavigation, useMediaQuery, useTheme } from '@mui/material';
 import { useOptBottomNav } from '@stores/useOptBottomNav';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@stores/useAuthStore';
 
 function BottomNavigationMobile() {
   const { optionChosen, updateOptionChosen } = useOptBottomNav();
@@ -9,6 +10,11 @@ function BottomNavigationMobile() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
+  const { token } = useAuthStore();
+
+  if (!token) {
+    return null;
+  }
 
   return (
     <>

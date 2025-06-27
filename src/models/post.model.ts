@@ -22,8 +22,11 @@ export interface PostShowEndpoint {
 }
 
 export interface PostSearch {
-  titlePost: string;
-  yearCreated: string;
+  titlePost?: string;
+  description?: string;
+  tags?: string;
+  status?: string;
+  isPublished?: string;
 }
 
 export interface PostFabOptionsProps {
@@ -51,6 +54,7 @@ export interface Post {
   success_response?: string;
   created_at: string;
   updated_at: string;
+  status_display?: StatusDisplay;
 }
 
 export interface StatusDisplay {
@@ -58,6 +62,14 @@ export interface StatusDisplay {
   color: string;
   key: string;
 }
+
+export const initialValuesPostsQuery: PostSearch = {
+  titlePost: '',
+  description: '',
+  tags: '',
+  status: '',
+  isPublished: ''
+};
 
 // Post status constants
 export const POST_STATUS = {

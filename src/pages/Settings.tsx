@@ -1,5 +1,5 @@
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 export default function Settings() {
@@ -8,11 +8,11 @@ export default function Settings() {
 
   return (
     <>
-      {!isMobile && <AuthenticatedNavbar />}
+      <AuthenticatedNavbar />
       <Box sx={{ pb: isMobile ? 8 : 0 }}>
         <div>Settings</div>
       </Box>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
 }

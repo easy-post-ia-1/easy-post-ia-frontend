@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useForm from '@hooks/shared/useForm';
-import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
+import { AccountCircle, Visibility, VisibilityOff, ArrowBack } from '@mui/icons-material';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
@@ -30,7 +30,7 @@ import ErrorFormHelperText from './ErrorFormHelperText';
 import { userCreateSignUpMutation } from '@hooks/mutations/user/userCreateSignUpMutation';
 import CircularProgressBtnLoading from '@components/loading/CircularProgressBtnLoading';
 import { useNavigate } from 'react-router-dom';
-import { initialValuesSignUp } from '@utils/constants';
+import { initialValuesSignUp } from '@utils/constants/user.constants';
 
 const SignUpForm = () => {
   const [errorsForm, setErrorsForm] = useState(initialValuesSignUp);
@@ -46,6 +46,8 @@ const SignUpForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((show: boolean) => !show);
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show: boolean) => !show);
+  const handleBack = () => navigate(-1);
+
   const uploadFormSignUp = () => {
     setDisabledSignUp(true);
     const newUser = { username, email, password, role } as UserSignUp;
@@ -75,7 +77,12 @@ const SignUpForm = () => {
 
   return (
     <Stack sx={{ mt: 6 }}>
-      <Typography variant="h6">{t('login.btn_signup')}</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+        <IconButton onClick={handleBack} sx={{ mr: 1 }}>
+          <ArrowBack />
+        </IconButton>
+        <Typography variant="h6">{t('login.btn_signup')}</Typography>
+      </Box>
       <Typography variant="caption">{t('login.started')}</Typography>
 
       <FormControl error={errorsForm?.username?.length > 0} sx={{ mt: 2 }} variant="outlined">
@@ -167,14 +174,14 @@ const SignUpForm = () => {
       </FormControl>
 
       <FormControl error={errorsForm?.role?.length > 0} sx={{ my: 4 }}>
-        <InputLabel id="select-type-user-label">{t('form.type_user')}</InputLabel>
+        <InputLabel id="select-type-user-label">{t('form.type.user')}</InputLabel>
         <Select
           labelId="select-type-user-label"
           id="select-type-user"
           value={role as string}
           onChange={(e: SelectChangeEvent) => handleInputChange(e as unknown as ChangeEvent<HTMLInputElement>)}
           autoWidth
-          label={t('form.type_user')}
+          label={t('form.type.user')}
           aria-describedby="select-usertype-helper-text"
           inputProps={{ name: 'role' }}
         >
@@ -220,7 +227,7 @@ const SignUpForm = () => {
       </FormControl>
 
       <Button id="submit-signup" variant="contained" size="large" disabled={disabledSignUp} onClick={uploadFormSignUp}>
-        {mutation?.isPending && !mutation?.isError ? <CircularProgressBtnLoading /> : t('form.btn_continue')}
+        {mutation?.isPending && !mutation?.isError ? <CircularProgressBtnLoading /> : t('form.btn.continue')}
       </Button>
     </Stack>
   );

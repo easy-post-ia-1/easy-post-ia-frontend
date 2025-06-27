@@ -1,31 +1,22 @@
-import { AxiosResponse } from 'axios';
-
-interface ConfigService {
-  version?: string;
+export interface ApiResponse<T> {
+  data: T;
+  message?: string;
+  status?: number;
 }
 
-export interface Data {
-  [key: string]: string | number | boolean | object | undefined | void;
-}
-
-interface ConfigAxios {
-  timeout?: number;
-  headers?: Record<string, string>;
+export interface ApiError {
+  message: string;
+  status?: number;
 }
 
 export interface ParamsAxios {
   configService?: {
-    version: string;
+    version?: string;
   };
-  data?: any;
-  params?: Record<string, any>;
+  data?: object;
+  params?: object;
 }
 
 export interface ResponseAxiosService {
   call: Promise<any>;
-}
-
-export interface StatusSuccess {
-  code: number;
-  message: string;
 }

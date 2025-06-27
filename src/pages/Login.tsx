@@ -1,12 +1,9 @@
 import Logo from '@components/navbar/Logo';
 import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
-
-import joinNow from '@assets/images/login/lettering_joinnow_big.png';
-import youngMan from '@assets/images/login/young_man.png';
 import LoginForm from '@components/get_started/LoginForm';
-import { MobileBottomNavigation } from '@components/navigation/BottomNavigation';
+import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 
-export default function Login() {
+const Login: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -35,15 +32,17 @@ export default function Login() {
             }}
           >
             <div style={{ maxWidth: '200px', width: '100%' }}>
-              <img src={joinNow} alt="join now text'" style={{ maxWidth: '100%', height: 'auto' }} />
+              <img src="/images/login/lettering_joinnow_big.png" alt="Join now text" style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
             </div>
             <div style={{ maxWidth: '200px', width: '100%' }}>
-              <img src={youngMan} alt="Young man in grayscale" style={{ maxWidth: '100%', height: 'auto' }} />
+              <img src="/images/login/young_man.png" alt="Young man in grayscale" style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
             </div>
           </div>
         </Box>
       </Box>
-      {isMobile && <MobileBottomNavigation />}
+      <BottomNavigationMobile />
     </>
   );
-}
+};
+
+export default Login;

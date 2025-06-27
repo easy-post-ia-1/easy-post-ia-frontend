@@ -2,7 +2,11 @@ import { Box } from '@mui/material';
 import PostCard from './PostCard';
 import { PostFormValues } from '@models/post.model';
 
-function PostCards({ posts = [] }) {
+interface PostsCardsProps {
+  posts: PostFormValues[];
+}
+
+function PostsCards({ posts = [] }: PostsCardsProps) {
   return (
     <Box
       display="flex"
@@ -15,4 +19,4 @@ function PostCards({ posts = [] }) {
   );
 }
 
-export default PostCards;
+export default PostsCards;

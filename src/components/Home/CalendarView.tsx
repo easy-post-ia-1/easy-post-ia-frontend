@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography, CircularProgress, Alert, Skeleton, List, ListItem, ListItemText, Paper, CardActionArea } from '@mui/material';
+import { Box, Typography, Alert, Skeleton, List, ListItem, ListItemText, Paper, CardActionArea } from '@mui/material';
 import { useCalendarPostsQuery } from '@hooks/queries/calendar/useCalendarPostsQuery';
 import { Post } from '@models/post.model';
 import PostDetailModal from '@components/post/PostDetailModal';
