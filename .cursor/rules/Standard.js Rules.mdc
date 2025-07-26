@@ -1,7 +1,9 @@
+
 ---
-description: 
-globs: false
-alwaysApply: false
+description: Reglas de estilo Standard.js para todo el frontend
+globs:
+  - src/**
+alwaysApply: true
 ---
 
 2 tabs indentation
@@ -25,6 +27,11 @@ Commas followed by space
 else on same line as closing }
 
 Multi‑line if blocks always use { }
+
+Always handle error callback parameters
+
+camelCase for variables/functions; PascalCase for components and interfaces
+
 
 Always handle error callback parameters
 

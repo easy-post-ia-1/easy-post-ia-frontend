@@ -1,11 +1,18 @@
+
 ---
-description: 
-globs: false
-alwaysApply: false
+description: Reglas de manejo de errores y validación para todo el frontend
+globs:
+  - src/**
+alwaysApply: true
 ---
 
 Validate inputs and preconditions early (guard clauses).
 
+Place happy-path logic last.
+
+Provide clear, user‑friendly error messages.
+
+Log or report unexpected errors.
 Place happy-path logic last.
 
 Provide clear, user‑friendly error messages.

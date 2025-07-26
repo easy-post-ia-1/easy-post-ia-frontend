@@ -76,6 +76,7 @@ function LoginForm() {
         <InputLabel htmlFor="outlined-adornment-username">{t('form.username')}</InputLabel>
         <OutlinedInput
           id="outlined-adornment-username"
+          name="username"
           type="text"
           startAdornment={
             <InputAdornment position="start">
@@ -96,6 +97,7 @@ function LoginForm() {
         <InputLabel htmlFor="outlined-adornment-password">{t('form.password')}</InputLabel>
         <OutlinedInput
           id="outlined-adornment-password"
+          name="password"
           type={showPassword ? 'text' : 'password'}
           endAdornment={
             <InputAdornment position="end">
@@ -115,6 +117,7 @@ function LoginForm() {
 
       <Box mt={4} />
       <Button
+      id="submit-login"
         variant="contained"
         disabled={disabledLogin}
         size="large"

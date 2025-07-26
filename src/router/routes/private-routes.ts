@@ -28,7 +28,7 @@ export const privateRoutes = [
   {
     path: '/dashboard',
     component: lazy(() => import('@pages/Dashboard')),
-    roles: ['user', 'admin'],
+    roles: ['EMPLOYER', 'ADMIN'],
   },
   {
     path: '/settings',

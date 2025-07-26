@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { postsService } from '@services/posts.service';
-import { DateTime } from 'luxon';
 import useAlertNotification from '../../../hooks/shared/useAlertNotification';
 import { Post } from '@models/post.model';
 
-interface PostsResponse {
+export interface PostsResponse {
   status: {
     code: number;
     message: string;
@@ -15,6 +14,14 @@ interface PostsResponse {
     pages: number;
     count: number;
   };
+}
+
+export interface PostResponse {
+  status: {
+    code: number;
+    message: string;
+  };
+  post: Post;
 }
 
 interface PostsFilters {
@@ -43,8 +50,8 @@ export const usePosts = (filters?: PostsFilters) => {
     queryFn: async () => {
       try {
         const cleanFilters = filters ? removeUndefinedValues(filters) : {};
-        const response = await postsService.index(cleanFilters);
-        return response;
+        const response = await postsService.index({ params: cleanFilters }).call;
+        return response.data;
       } catch (error) {
         enqueueAlertNotification('Failed to fetch posts', 'error');
         throw error;
@@ -56,17 +63,17 @@ export const usePosts = (filters?: PostsFilters) => {
 export const usePostShow = (id: number) => {
   const enqueueAlertNotification = useAlertNotification();
 
-  return useQuery<PostsResponse>({
+  return useQuery<PostResponse>({
     queryKey: ['post', id],
     queryFn: async () => {
       try {
-        const response = await postsService.show(id);
-        return response;
+        const response = await postsService.show({ id }).call;
+        return response.data;
       } catch (error) {
         enqueueAlertNotification('Failed to fetch post', 'error');
         throw error;
       }
     },
-    enabled: !!id,
+    enabled: !!id && id !== -1,
   });
 };

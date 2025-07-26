@@ -7,7 +7,7 @@ function AddNewPost() {
 
   return (
     <div style={{ position: 'fixed', bottom: 80, right: 10 }}>
-      <Fab color="primary" aria-label="add" onClick={() => navigate('/posts/-1')}>
+      <Fab id='create-new-post' color="primary" aria-label="add" onClick={() => navigate('/posts/-1')}>
         <AddIcon />
       </Fab>
     </div>

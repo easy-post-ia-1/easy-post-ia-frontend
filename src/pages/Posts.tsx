@@ -14,12 +14,12 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { ChangeEvent, useCallback, useState, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import PostsCards from '@components/posts/PostsCards';
 import { useTranslation } from 'react-i18next';
 import { initialValuesPostsQuery } from '@models/post.model';
-import { usePosts } from '@hooks/queries/posts/usePostsQuery';
+import { usePosts, PostsResponse } from '@hooks/queries/posts/usePostsQuery';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
 import AddNewPost from '@components/posts/AddNewPost';
 import usePaginationItemSize from '@hooks/shared/usePaginationItemSize';
@@ -27,19 +27,6 @@ import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 import { Post, PostFormValues, PostSearch } from '@models/post.model';
 import { DateTime } from 'luxon';
 import useDebounce from '@hooks/shared/useDebounce';
-
-interface PostsResponse {
-  status: {
-    code: number;
-    message: string;
-  };
-  posts: Post[];
-  pagination: {
-    page: number;
-    pages: number;
-    count: number;
-  };
-}
 
 const defaultResponse: PostsResponse = {
   status: { code: 200, message: '' },
@@ -87,6 +74,8 @@ function Posts() {
     title: post.title,
     description: post.description,
     tags: post.tags,
+    category: post.category || '',
+    emoji: post.emoji || '',
     programmingDateToPost: DateTime.fromISO(post.programming_date_to_post),
     isPublished: post.is_published
   }));

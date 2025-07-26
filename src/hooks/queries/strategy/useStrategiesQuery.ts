@@ -20,13 +20,14 @@ export const useStrategies = ({ page = 1, limit = 10 }: UseStrategiesOptions = {
     queryKey: [STRATEGY_QUERY_KEYS.STRATEGIES, page, limit],
     queryFn: async () => {
       const response = await strategyService.getStrategies({
-        params: { page, page_size: limit }
-      }).call;
+        page,
+        perPage: limit
+      });
       
       return fetchedStrategiesAdapter(
-        response.data.strategies,
-        response.data.pagination.page,
-        response.data.pagination.per_page
+        response.strategies,
+        response.pagination.page,
+        response.pagination.per_page
       );
     },
   });

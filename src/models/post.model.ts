@@ -7,6 +7,8 @@ export interface PostFormValues {
   description: string;
   imageUrl?: string;
   tags: string;
+  category: string;
+  emoji: string;
   programmingDateToPost: DateTime<boolean> | null | undefined;
   isPublished: boolean;
 }
@@ -17,6 +19,8 @@ export interface PostShowEndpoint {
   description: string;
   image_url?: string;
   tags: string;
+  category?: string;
+  emoji?: string;
   programming_date_to_post: string;
   is_published: boolean;
 }
@@ -33,6 +37,7 @@ export interface PostFabOptionsProps {
   id: number;
   valuesForm: PostFormValues;
   handleErrorFormat: (errorFormat: PostFormValues) => void;
+  onTemplateSelect?: (template: any) => void;
 }
 
 export interface PostFabPublishSaveDelProps {
@@ -49,15 +54,17 @@ export interface Post {
   programming_date_to_post: string;
   is_published: boolean;
   tags: string;
+  category: string;
+  emoji: string;
   strategy?: FetchedStrategy;
   error_response?: string;
   success_response?: string;
   created_at: string;
   updated_at: string;
-  status_display?: StatusDisplay;
+  status_display?: PostStatusDisplay;
 }
 
-export interface StatusDisplay {
+export interface PostStatusDisplay {
   name: string;
   color: string;
   key: string;

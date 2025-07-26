@@ -7,6 +7,8 @@ export const createPostAdapter = (post: PostShowEndpoint): PostFormValues => ({
   description: post.description,
   imageUrl: post.image_url,
   tags: post.tags,
+  category: post.category || '',
+  emoji: post.emoji || '',
   programmingDateToPost: DateTime.fromISO(post.programming_date_to_post),
   isPublished: post.is_published ?? false,
 });
@@ -17,6 +19,8 @@ export const uploadPostAdapter = (post: PostFormValues): PostShowEndpoint => ({
   description: post.description,
   image_url: post.imageUrl,
   tags: post.tags,
-  programming_date_to_post: post.programmingDateToPost as string,
+  category: post.category,
+  emoji: post.emoji,
+  programming_date_to_post: post.programmingDateToPost?.toISO() || new Date().toISOString(),
   is_published: post.isPublished,
 });

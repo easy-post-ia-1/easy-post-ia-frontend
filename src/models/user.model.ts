@@ -34,5 +34,13 @@ export interface UserSignUp {
   email: string;
   password: string;
   role: string;
-  confirmPasswd?: string;
+  company_code: string;
+  team_code: string;
+  team_name?: string;
+  confirmPasswd?: string; // For frontend validation only, not sent to backend
+}
+
+export interface LoginInfo {
+  username: string;
+  password: string;
 }

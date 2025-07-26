@@ -1,13 +1,20 @@
+
 ---
-description: 
-globs: false
-alwaysApply: false
+description: Reglas para formularios y validación en todo el frontend
+globs:
+  - src/**
+alwaysApply: true
 ---
 
 Use controlled inputs.
 
 For simple forms, write custom hooks; for complex ones, use the hook useForm located in /hooks/shared/useForm.tsx 
 
+Separate client‑side and server‑side validation.
+
+Optionally integrate a schema library (e.g. Joi) if needed.
+
+Use zod validations if its neccesary.
 Separate client‑side and server‑side validation.
 
 Optionally integrate a schema library (e.g. Joi) if needed.

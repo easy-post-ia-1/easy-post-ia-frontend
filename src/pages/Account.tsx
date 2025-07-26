@@ -14,15 +14,23 @@ import {
   Paper,
   useMediaQuery,
   useTheme,
+  Button,
 } from '@mui/material';
 import { useCompanySocialStatus } from '@hooks/queries/user/useCompanySocialStatusQuery';
 import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
 import { useTranslation } from 'react-i18next';
+import { capitalizeFirst } from '@utils/helpers';
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '@stores/userStore';
+import { useAuthStore } from '@stores/useAuthStore';
 
 function Account() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+  const { logout } = useUserStore();
+  const { updateErrorToken, updateToken } = useAuthStore();
   const { data = { user: {} } } = useGetAccount();
   const user = createUserAdapter(data?.user);
   const {
@@ -31,6 +39,13 @@ function Account() {
     isError: isErrorSocialStatus,
     error: errorSocialStatus,
   } = useCompanySocialStatus();
+
+  const handleLogout = () => {
+    logout();
+    updateErrorToken(null);
+    updateToken(null);
+    navigate('/login');
+  };
 
   return (
     <>
@@ -42,6 +57,9 @@ function Account() {
           <Typography variant="h6">{user?.username}</Typography>
           <Typography variant="body1" color="textSecondary">
             {user?.email}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" sx={{ mt: 0.5 }}>
+            {capitalizeFirst(user?.role)}
           </Typography>
         </Box>
 
@@ -87,6 +105,20 @@ function Account() {
             </>
           )}
         </Box>
+
+        {/* Logout Button - Mobile Only */}
+        {isMobile && (
+          <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={handleLogout}
+              sx={{ minWidth: '200px' }}
+            >
+              {t('account.logout')}
+            </Button>
+          </Box>
+        )}
       </Container>
       <BottomNavigationMobile />
     </>

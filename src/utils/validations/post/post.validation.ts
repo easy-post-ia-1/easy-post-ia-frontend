@@ -11,7 +11,7 @@ export const postSchema = z.object({
     .string()
     .min(10, { message: 'Content must be at least 10 characters long.' })
     .max(5000, { message: 'Maximum 5000 characters.' }),
-  imageUrl: z.string().optional(),
+  imageUrl: z.string().optional().nullable(),
   tags: z
     .string()
     .regex(/^([^,]+)(,[^,]+)*$/, { message: 'Tags must be separated by commas and cannot be empty.' })

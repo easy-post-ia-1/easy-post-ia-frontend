@@ -14,13 +14,12 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState, useEffect, useRef } from 'react';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { initialValuesPost, top100Films } from '@utils/constants';
+import { postCategoriesForAutocomplete } from '@utils/constants/categoriesTags.constants';
 import { PostFormValues } from '@models/post.model';
-
 import placeholderUploadPost from '@assets/images/posts/placeholder_upload_post.jpg';
 import { useTranslation } from 'react-i18next';
 import PostFabOptions from '@components/posts/PostFabOptions';
@@ -30,22 +29,38 @@ import { useParams } from 'react-router-dom';
 import { createPostAdapter } from '@adapters/post.adapter';
 import AuthenticatedNavbar from '@components/navbar/AuthenticatedNavbar';
 import BottomNavigationMobile from '@components/navbar/BottomNavigationMobile';
+import { DateTime } from 'luxon';
+
+const initialValuesPost: PostFormValues = {
+  id: -1,
+  title: '',
+  description: '',
+  imageUrl: undefined,
+  tags: '',
+  category: '',
+  emoji: '',
+  programmingDateToPost: DateTime.now(),
+  isPublished: true,
+};
 
 function Post() {
   const { id } = useParams();
-  const { valuesForm, handleInputChange, resetForm } = useForm(initialValuesPost);
-  const [errorsForm, setErrorsForm] = useState(initialValuesPost);
-  const { title = '', description = '', imageUrl = '', tags = '', programmingDateToPost } = valuesForm;
+  const { valuesForm, handleInputChange, resetForm } = useForm<PostFormValues>(initialValuesPost);
+  const [errorsForm, setErrorsForm] = useState<PostFormValues>(initialValuesPost);
+  const isFormInitializedRef = useRef(false);
+  const { title = '', description = '', imageUrl = '', tags = '', category = '', emoji = '', programmingDateToPost } = valuesForm;
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data } = usePostShow(Number(id));
 
+  // Initialize form with post data only once when data is available
   useEffect(() => {
-    if (data?.posts?.[0]) {
-      resetForm(createPostAdapter(data.posts[0]));
+    if (data?.post && !isFormInitializedRef.current) {
+      resetForm(createPostAdapter(data.post));
+      isFormInitializedRef.current = true;
     }
-  }, [data]);
+  }, [data?.post, resetForm]);
 
   const handleErrorFormat = (errorFormat: PostFormValues) => setErrorsForm(errorFormat);
 
@@ -92,24 +107,43 @@ function Post() {
           <img
             alt="preview image"
             style={{ maxWidth: '100%', height: 'auto', maxHeight: '400px', objectFit: 'contain', aspectRatio: '16/9' }}
-            src={imageUrl?.length > 0 ? imageUrl : placeholderUploadPost}
+            src={imageUrl && imageUrl.length > 0 ? imageUrl : placeholderUploadPost}
+          />
+
+          <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>
+            {t('post.form.label.category')}
+          </Typography>
+          <Autocomplete
+            value={category ? { label: `${emoji} ${category}`, year: 0 } : null}
+            id="category-select"
+            options={postCategoriesForAutocomplete}
+            getOptionLabel={({ label }) => label}
+            renderInput={(params) => <TextField {...params} label={t('post.form.label.category')} placeholder="Select category" />}
+            onChange={(_, newValue) => {
+              if (newValue) {
+                const categoryName = newValue.label.split(' ').slice(1).join(' '); // Remove emoji
+                const categoryEmoji = newValue.label.split(' ')[0]; // Get emoji
+                handleInputChange({ target: { name: 'category', value: categoryName } });
+                handleInputChange({ target: { name: 'emoji', value: categoryEmoji } });
+              } else {
+                handleInputChange({ target: { name: 'category', value: '' } });
+                handleInputChange({ target: { name: 'emoji', value: '' } });
+              }
+            }}
+            freeSolo={false}
+            sx={{ width: '500px' }}
           />
 
           <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>
             {t('post.form.label.tags')}
           </Typography>
-          <Autocomplete
-            multiple
-            value={tags?.length > 0 ? tags.split(',').map((tag) => ({ label: tag, year: 0 })) : []}
-            limitTags={2}
-            id="multiple-limit-tags"
-            options={top100Films}
-            getOptionLabel={({ label }) => label}
-            renderInput={(params) => <TextField {...params} label={t('post.form.label.tags')} placeholder="Manufacturing" />}
-            onChange={(_, newInputValue) => {
-              const newTags = newInputValue.map((_) => _.label).join(',');
-              handleInputChange({ target: { name: 'tags', value: newTags } });
-            }}
+          <TextField
+          name='tags'
+            label={t('post.form.label.tags')}
+            variant="outlined"
+            value={tags}
+            onChange={(e) => handleInputChange({ target: { name: 'tags', value: e.target.value } })}
+            placeholder="Enter tags separated by commas"
             sx={{ width: '500px' }}
           />
 
@@ -137,7 +171,32 @@ function Post() {
         </Fab>
       </div>
       <div id="back" style={{ position: 'fixed', bottom: '6rem', right: '1rem' }}>
-        <PostFabOptions id={Number(id)} valuesForm={valuesForm} handleErrorFormat={handleErrorFormat} />
+        <PostFabOptions 
+          id={Number(id)} 
+          valuesForm={valuesForm} 
+          handleErrorFormat={handleErrorFormat}
+          onTemplateSelect={(updatedValues: PostFormValues) => {            
+            // Update the form with template values
+            if (updatedValues.title) {
+              handleInputChange({ target: { name: 'title', value: updatedValues.title } });
+            }
+            if (updatedValues.description) {
+              handleInputChange({ target: { name: 'description', value: updatedValues.description } });
+            }
+            if (updatedValues.tags) {
+              handleInputChange({ target: { name: 'tags', value: updatedValues.tags } });
+            }
+            if (updatedValues.imageUrl) {
+              handleInputChange({ target: { name: 'imageUrl', value: updatedValues.imageUrl } });
+            }
+            if (updatedValues.category) {
+              handleInputChange({ target: { name: 'category', value: updatedValues.category } });
+            }
+            if (updatedValues.emoji) {
+              handleInputChange({ target: { name: 'emoji', value: updatedValues.emoji } });
+            }
+          }}
+        />
       </div>
       <BottomNavigationMobile />
     </div>

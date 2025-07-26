@@ -1,8 +1,3 @@
----
-description: 
-globs: false
-alwaysApply: false
----
 Always priorize generate the solution with Material UI.
 
 If you have a new component and it isnt in material ui do it with the params of material design 3

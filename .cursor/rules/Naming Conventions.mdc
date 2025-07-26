@@ -1,7 +1,9 @@
+
 ---
-description: 
-globs: false
-alwaysApply: false
+description: Reglas de nombramiento para todo el frontend
+globs:
+  - src/**
+alwaysApply: true
 ---
 
 Directories: lowercase with dashes (e.g. components/auth-wizard) with your respective extension
@@ -32,6 +34,11 @@ components and folder to each route with import component.
 services -> Helpers to identify the specific service to determinied endpoints.
 
 stores -> Save information zustand hooks.
+
+utils -> Contain helpers axios, enums, errors, validations, constants.
+
+Prefer named exports for components
+Types/Interfaces in PascalCase (e.g. User, ButtonProps)
 
 utils -> Contain helpers axios, enums, errors, validations, constants.
 

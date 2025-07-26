@@ -45,6 +45,7 @@ const test = testConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: ['./setupTests.ts'],
+    reporters: ['default', 'html']
   },
 });
 

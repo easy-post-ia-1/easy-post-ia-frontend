@@ -15,7 +15,7 @@ function PageOptNav() {
   const { pagesOptions } = useNavbarOptions();
 
   return (
-    <Box sx={{ flexGrow: 1, justifyContent: { xs: 'inherit', md: 'center' }, display: { xs: 'none', md: 'flex' } }}>
+    <Box sx={{ flexGrow: 1, justifyContent: { xs: 'inherit', md: 'center' }, display: { xs: 'none', sm: 'flex' } }}>
       {pagesOptions.map(({ id = 'default-pages-nav-none', name = '', onClick = () => {} }) => (
         <PageTypography key={id} onClick={onClick}>
           {name}

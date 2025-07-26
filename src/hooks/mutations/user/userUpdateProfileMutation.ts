@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '@services/user.service';
 import useHandleAlertNotification from '@hooks/shared/useAlertNotification';
-import { User } from '@models/user.model';
 
 interface UpdateProfileParams {
   did_tutorial: boolean;

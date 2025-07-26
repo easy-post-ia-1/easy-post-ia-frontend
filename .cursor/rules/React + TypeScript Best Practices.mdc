@@ -1,7 +1,9 @@
+
 ---
-description: 
-globs: false
-alwaysApply: false
+description: Buenas prácticas de React + TypeScript para todo el frontend
+globs:
+  - src/**
+alwaysApply: true
 ---
 
 Define props with interfaces/types, not prop-types.
@@ -36,6 +38,11 @@ Use React.lazy + Suspense for code splitting.
 Use refs only for direct DOM access.
 
 Prefer controlled components for forms.
+
+Clean up effects in useEffect to prevent leaks.
+
+Use guard clauses (early returns) for error handling.
+
 
 Clean up effects in useEffect to prevent leaks.
 

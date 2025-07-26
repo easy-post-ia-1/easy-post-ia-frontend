@@ -8,7 +8,7 @@ function BottomNavigationMobile() {
   const { optionChosen, updateOptionChosen } = useOptBottomNav();
   const { bottomNav } = useBottomNavigationOptions();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const { token } = useAuthStore();
 
@@ -25,14 +25,17 @@ function BottomNavigationMobile() {
             value={optionChosen}
             onChange={(_, newValue) => {
               updateOptionChosen(newValue);
-              navigate(`/${newValue}`);
+              const navOption = bottomNav.find(opt => opt.label === newValue);
+              if (navOption && navOption.redirectUrl) {
+                navigate(navOption.redirectUrl);
+              }
             }}
           >
             {bottomNav.map(({ label, icon, id }) => (
               <BottomNavigationAction
                 sx={{ textTransform: 'capitalize' }}
                 key={id}
-                label={label}
+                label={label.charAt(0).toUpperCase() + label.slice(1)}
                 value={label}
                 icon={icon}
               />

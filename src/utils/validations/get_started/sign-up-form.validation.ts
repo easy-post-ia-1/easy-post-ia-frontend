@@ -17,7 +17,7 @@ export const signupSchema = z
       .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
       .regex(/\d/, 'Password must contain at least one number'),
 
-    confirmPasswd: z.string({ required_error: 'Confirm password is required' }).optional(),
+    confirmPasswd: z.string({ required_error: 'Confirm password is required' }),
 
     role: z
       .string()
@@ -25,8 +25,12 @@ export const signupSchema = z
       .refine((val) => ['ADMIN', 'EMPLOYER', 'EMPLOYEE'].includes(val), {
         message: 'Role must be one of ADMIN, EMPLOYER, or EMPLOYEE',
       }),
+
+    company_code: z.string({ required_error: 'Company code is required' }),
+    team_code: z.string({ required_error: 'Team code is required' }),
+    team_name: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPasswd, {
-    path: ['confirmPasswd'], // Point to 'confirmPasswd' where the error should be shown
+    path: ['confirmPasswd'],
     message: "Passwords don't match",
   });

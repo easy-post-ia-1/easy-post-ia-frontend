@@ -3,6 +3,64 @@ export interface Film {
   year: number;
 }
 
+// Post categories with emojis (similar to templates)
+export const POST_CATEGORIES = {
+  MARKETING: {
+    name: 'Marketing',
+    emoji: '🚀'
+  },
+  NEWS: {
+    name: 'News',
+    emoji: '📰'
+  },
+  EVENTS: {
+    name: 'Events',
+    emoji: '🎉'
+  },
+  SUCCESS: {
+    name: 'Success',
+    emoji: '🏆'
+  },
+  INSIGHTS: {
+    name: 'Insights',
+    emoji: '💡'
+  },
+  TEAM: {
+    name: 'Team',
+    emoji: '👥'
+  },
+  CULTURE: {
+    name: 'Culture',
+    emoji: '📸'
+  },
+  EDUCATION: {
+    name: 'Education',
+    emoji: '📚'
+  },
+  PRODUCT: {
+    name: 'Product',
+    emoji: '📦'
+  },
+  CUSTOMER: {
+    name: 'Customer',
+    emoji: '👤'
+  },
+  INDUSTRY: {
+    name: 'Industry',
+    emoji: '🏭'
+  },
+  TECHNOLOGY: {
+    name: 'Technology',
+    emoji: '💻'
+  }
+} as const;
+
+// Convert categories to autocomplete format
+export const postCategoriesForAutocomplete = Object.values(POST_CATEGORIES).map(category => ({
+  label: `${category.emoji} ${category.name}`,
+  year: 0
+}));
+
 export const top100Films: Array<Film> = [
   { label: 'The Shawshank Redemption', year: 1994 },
   { label: 'The Godfather', year: 1972 },

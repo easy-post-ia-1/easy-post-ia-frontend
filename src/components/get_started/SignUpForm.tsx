@@ -40,7 +40,7 @@ const SignUpForm = () => {
   const mutation = userCreateSignUpMutation();
 
   const { valuesForm, handleInputChange } = useForm(initialValuesSignUp);
-  const { username = '', email = '', password = '', confirmPasswd = '', role = 'EMPLOYER' } = valuesForm;
+  const { username = '', email = '', password = '', confirmPasswd = '', role = 'EMPLOYER', company_code = '', team_code = '' } = valuesForm;
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -50,21 +50,17 @@ const SignUpForm = () => {
 
   const uploadFormSignUp = () => {
     setDisabledSignUp(true);
-    const newUser = { username, email, password, role } as UserSignUp;
+    const newUser = { username, email, password, role, company_code, team_code } as UserSignUp;
     const { success = false, error = null } = signupSchema.safeParse({ ...newUser, confirmPasswd });
     if (success) {
       mutation.mutate(newUser);
       setDisabledSignUp(false);
-
       return;
     }
-
     const formatErrors =
       error?.issues
         ?.map(({ message, path }: Error) => ({ message, path }))
         .filter((error): error is { message: string; path: string[] } => error !== undefined) || [];
-
-    // Send notification error with hook and function
     setErrorsForm(groupErrorMessages(formatErrors) as unknown as UserSignUp);
     setDisabledSignUp(false);
   };
@@ -90,6 +86,8 @@ const SignUpForm = () => {
         <OutlinedInput
           id="outlined-adornment-username"
           type="text"
+          name="username"
+          inputProps={{ name: 'username', 'data-testid': 'username-input' }}
           startAdornment={
             <InputAdornment position="start">
               <AccountCircle />
@@ -98,7 +96,6 @@ const SignUpForm = () => {
           label={t('form.username')}
           value={username}
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-          inputProps={{ name: 'username' }}
         />
         <FormHelperText id="select-usertype-helper-text">
           <ErrorFormHelperText text={errorsForm?.username} />
@@ -110,6 +107,8 @@ const SignUpForm = () => {
         <OutlinedInput
           id="outlined-adornment-password"
           type={showPassword ? 'text' : 'password'}
+          name="password"
+          inputProps={{ name: 'password', 'data-testid': 'password-input' }}
           endAdornment={
             <InputAdornment position="end">
               <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end">
@@ -118,9 +117,8 @@ const SignUpForm = () => {
             </InputAdornment>
           }
           label={t('form.password')}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
           value={password}
-          inputProps={{ name: 'password' }}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
         />
         <FormHelperText id="outlined-error-password">
           <ErrorFormHelperText text={errorsForm?.password} />
@@ -136,6 +134,8 @@ const SignUpForm = () => {
         <OutlinedInput
           id="outlined-adornment-confirm-password"
           type={showConfirmPassword ? 'text' : 'password'}
+          name="confirmPasswd"
+          inputProps={{ name: 'confirmPasswd', 'data-testid': 'confirmPasswd-input' }}
           endAdornment={
             <InputAdornment position="end">
               <IconButton aria-label="toggle password visibility" onClick={handleClickShowConfirmPassword} edge="end">
@@ -144,9 +144,8 @@ const SignUpForm = () => {
             </InputAdornment>
           }
           label={t('form.password')}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
           value={confirmPasswd}
-          inputProps={{ name: 'confirmPasswd' }}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
         />
         <FormHelperText id="select-confirmPasswd-helper-text">
           <ErrorFormHelperText text={errorsForm?.confirmPasswd} />
@@ -158,6 +157,8 @@ const SignUpForm = () => {
         <OutlinedInput
           id="outlined-adornment-email"
           type="text"
+          name="email"
+          inputProps={{ name: 'email', 'data-testid': 'email-input' }}
           startAdornment={
             <InputAdornment position="start">
               <MailOutlinedIcon />
@@ -166,12 +167,55 @@ const SignUpForm = () => {
           label={t('form.email')}
           value={email}
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-          inputProps={{ name: 'email' }}
         />
         <FormHelperText id="select-email-helper-text">
           <ErrorFormHelperText text={errorsForm?.email} />
         </FormHelperText>
       </FormControl>
+
+      <FormControl error={errorsForm?.company_code?.length > 0} sx={{ mt: 4 }} variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-company-code">Company Code</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-company-code"
+          type="text"
+          name="company_code"
+          inputProps={{ name: 'company_code', 'data-testid': 'company-code-input' }}
+          startAdornment={
+            <InputAdornment position="start">
+              <BadgeIcon />
+            </InputAdornment>
+          }
+          label="Company Code"
+          value={company_code}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+        />
+        <FormHelperText id="select-company-code-helper-text">
+          <ErrorFormHelperText text={errorsForm?.company_code} />
+        </FormHelperText>
+      </FormControl>
+
+      <FormControl error={errorsForm?.team_code?.length > 0} sx={{ mt: 4 }} variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-team-code">Team Code</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-team-code"
+          type="text"
+          name="team_code"
+          inputProps={{ name: 'team_code', 'data-testid': 'team-code-input' }}
+          startAdornment={
+            <InputAdornment position="start">
+              <BadgeIcon />
+            </InputAdornment>
+          }
+          label="Team Code"
+          value={team_code}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+        />
+        <FormHelperText id="select-team-code-helper-text">
+          <ErrorFormHelperText text={errorsForm?.team_code} />
+        </FormHelperText>
+      </FormControl>
+
+
 
       <FormControl error={errorsForm?.role?.length > 0} sx={{ my: 4 }}>
         <InputLabel id="select-type-user-label">{t('form.type.user')}</InputLabel>

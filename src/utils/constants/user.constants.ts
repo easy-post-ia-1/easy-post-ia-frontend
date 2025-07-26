@@ -6,7 +6,9 @@ export const initialValuesSignUp: UserSignUp = {
   email: '',
   password: '',
   confirmPasswd: '',
-  role: '',
+  role: 'EMPLOYER',
+  company_code: '',
+  team_code: '',
 };
 
 export const initialValuesLogin: LoginFormErrorValues = {

@@ -1,7 +1,8 @@
 ---
-description: 
-globs: *.tsx
-alwaysApply: false
+description: Reglas de accesibilidad para componentes TSX del frontend
+globs:
+  - src/**/*.tsx
+alwaysApply: true
 ---
 
 Use semantic HTML.

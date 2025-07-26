@@ -5,13 +5,18 @@ export const initialValuesPost: PostFormValues = {
   id: -1,
   title: '',
   description: '',
-  imageUrl: '',
+  imageUrl: undefined,
   tags: '',
+  category: '',
+  emoji: '',
   programmingDateToPost: DateTime.now(),
   isPublished: true,
 };
 
 export const initialValuesPostsQuery: PostSearch = {
   titlePost: '',
-  yearCreated: '',
+  description: '',
+  tags: '',
+  status: '',
+  isPublished: '',
 };

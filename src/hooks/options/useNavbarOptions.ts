@@ -29,6 +29,11 @@ export const useNavbarOptions = () => {
         onClick: () => navigate('/'),
       },
       {
+        id: 'default-pages-nav-dashboard',
+        name: 'Dashboard',
+        onClick: () => navigate('/dashboard'),
+      },
+      {
         id: 'default-pages-nav-2',
         name: 'Posts',
         onClick: () => navigate('/posts'),

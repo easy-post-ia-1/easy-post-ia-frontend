@@ -93,6 +93,8 @@ const PostsList = () => {
             title: post.title,
             description: post.description,
             tags: post.tags,
+            category: post.category || '',
+            emoji: post.emoji || '',
             programmingDateToPost: DateTime.fromISO(post.programming_date_to_post),
             isPublished: post.is_published
           };

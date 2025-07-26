@@ -24,6 +24,7 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.test
 
 # Lint output
 .eslintcache
@@ -63,3 +64,5 @@ debug.log
 =======
 # TS config
 tsconfig.*.tsbuildinfo
+
+*.keep
