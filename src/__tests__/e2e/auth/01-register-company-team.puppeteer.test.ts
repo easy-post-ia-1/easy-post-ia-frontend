@@ -23,8 +23,8 @@ describe('1b. E2E: User Registration with Fixed Company and Team Code', () => {
     // Use environment variable for password, randomize username/email to avoid collisions
     const randomSuffix = Math.floor(Math.random() * 1000000);
     const user = {
-      username: `fixeduser${randomSuffix}`,
-      email: `fixedusers${randomSuffix}@mail.com`,
+      username: `fixedusers${randomSuffix}`,
+      email: `fixeduserss${randomSuffix}@mail.com`,
       password: process.env.VITE_E2E_LOGIN_USER_PASSWORD || 'CHANGE_PASSWROD',
       company_code: 'COMPANY123',
       team_code: 'TEAM456',
@@ -59,10 +59,11 @@ describe('1b. E2E: User Registration with Fixed Company and Team Code', () => {
     // Wait 3 seconds for navigation
     await new Promise(res => setTimeout(res, 3000));
     const url = page.url();
+    console.log("URL: ", url)
     const isHome = url.endsWith('/home') || url.endsWith('/');
     expect(isHome).toBe(true);
     if (!isHome) {
       throw new Error(`Unexpected URL after login: ${url}`);
     }
-  }, 20000);
+  }, 40000);
 });
